@@ -1,0 +1,110 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: sales_by_film_category
+  fields:
+    - name: category
+      type: text
+    - name: total_sales
+      type: numeric
+  graphql:
+    typeName: sales_by_film_category
+    inputTypeName: sales_by_film_category_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: sales_by_film_category
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: sales_by_film_category
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - category
+          - total_sales
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: sales_by_film_category_bool_exp
+  operand:
+    object:
+      type: sales_by_film_category
+      comparableFields:
+        - fieldName: category
+          booleanExpressionType: text_bool_exp
+        - fieldName: total_sales
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: sales_by_film_category_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: sales_by_film_category_agg_exp
+  operand:
+    object:
+      aggregatedType: sales_by_film_category
+      aggregatableFields:
+        - fieldName: category
+          aggregateExpression: text_agg_exp
+        - fieldName: total_sales
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: sales_by_film_category_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: sales_by_film_category
+  objectType: sales_by_film_category
+  source:
+    dataConnectorName: mypostgres
+    collection: sales_by_film_category
+  filterExpressionType: sales_by_film_category_bool_exp
+  aggregateExpression: sales_by_film_category_agg_exp
+  orderableFields:
+    - fieldName: category
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_sales
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: sales_by_film_category
+      subscription:
+        rootField: sales_by_film_category
+    selectUniques: []
+    orderByExpressionType: sales_by_film_category_order_by
+    filterInputTypeName: sales_by_film_category_filter_input
+    aggregate:
+      queryRootField: sales_by_film_category_aggregate
+      subscription:
+        rootField: sales_by_film_category_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: sales_by_film_category
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

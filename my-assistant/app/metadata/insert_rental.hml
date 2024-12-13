@@ -1,0 +1,106 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_rental_object
+  fields:
+    - name: customer_id
+      type: int4!
+    - name: inventory_id
+      type: int4!
+    - name: last_update
+      type: timestamptz
+    - name: rental_date
+      type: timestamptz!
+    - name: rental_id
+      type: int4
+    - name: return_date
+      type: timestamptz
+    - name: staff_id
+      type: int4!
+  graphql:
+    typeName: insert_rental_object
+    inputTypeName: insert_rental_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_rental_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_rental_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - customer_id
+          - inventory_id
+          - last_update
+          - rental_date
+          - rental_id
+          - return_date
+          - staff_id
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_rental_response
+  description: Responses from the 'insert_rental' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[rental!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_rental_response
+    inputTypeName: insert_rental_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_rental_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_rental_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_rental
+  outputType: insert_rental_response!
+  arguments:
+    - name: objects
+      type: "[insert_rental_object!]!"
+    - name: post_check
+      type: rental_bool_exp
+      description: Insert permission predicate over the 'rental' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_rental
+  graphql:
+    rootFieldName: insert_rental
+    rootFieldKind: Mutation
+  description: Insert into the rental table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_rental
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,338 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: film
+  fields:
+    - name: description
+      type: text
+    - name: film_id
+      type: int4!
+    - name: fulltext
+      type: tsvector!
+    - name: language_id
+      type: int4!
+    - name: last_update
+      type: timestamptz!
+    - name: length
+      type: int2
+    - name: original_language_id
+      type: int4
+    - name: rating
+      type: mpaa_rating
+    - name: release_year
+      type: year
+    - name: rental_duration
+      type: int2!
+    - name: rental_rate
+      type: numeric!
+    - name: replacement_cost
+      type: numeric!
+    - name: special_features
+      type: "[text]"
+    - name: title
+      type: text!
+  graphql:
+    typeName: film
+    inputTypeName: film_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: film
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: film
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - description
+          - film_id
+          - fulltext
+          - language_id
+          - last_update
+          - length
+          - original_language_id
+          - rating
+          - release_year
+          - rental_duration
+          - rental_rate
+          - replacement_cost
+          - special_features
+          - title
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: film_bool_exp
+  operand:
+    object:
+      type: film
+      comparableFields:
+        - fieldName: description
+          booleanExpressionType: text_bool_exp
+        - fieldName: film_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: fulltext
+          booleanExpressionType: tsvector_bool_exp
+        - fieldName: language_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+        - fieldName: length
+          booleanExpressionType: int2_bool_exp
+        - fieldName: original_language_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: rating
+          booleanExpressionType: mpaa_rating_bool_exp
+        - fieldName: release_year
+          booleanExpressionType: year_bool_exp
+        - fieldName: rental_duration
+          booleanExpressionType: int2_bool_exp
+        - fieldName: rental_rate
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: replacement_cost
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: title
+          booleanExpressionType: text_bool_exp
+      comparableRelationships:
+        - relationshipName: language
+        - relationshipName: language_by_original_language_id
+        - relationshipName: film_actors
+        - relationshipName: film_categories
+        - relationshipName: inventories
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: film_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: film_agg_exp
+  operand:
+    object:
+      aggregatedType: film
+      aggregatableFields:
+        - fieldName: description
+          aggregateExpression: text_agg_exp
+        - fieldName: film_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: fulltext
+          aggregateExpression: tsvector_agg_exp
+        - fieldName: language_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+        - fieldName: length
+          aggregateExpression: int2_agg_exp
+        - fieldName: original_language_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: rating
+          aggregateExpression: mpaa_rating_agg_exp
+        - fieldName: release_year
+          aggregateExpression: year_agg_exp
+        - fieldName: rental_duration
+          aggregateExpression: int2_agg_exp
+        - fieldName: rental_rate
+          aggregateExpression: numeric_agg_exp
+        - fieldName: replacement_cost
+          aggregateExpression: numeric_agg_exp
+        - fieldName: title
+          aggregateExpression: text_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: film_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: film
+  objectType: film
+  source:
+    dataConnectorName: mypostgres
+    collection: film
+  filterExpressionType: film_bool_exp
+  aggregateExpression: film_agg_exp
+  orderableFields:
+    - fieldName: description
+      orderByDirections:
+        enableAll: true
+    - fieldName: film_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: fulltext
+      orderByDirections:
+        enableAll: true
+    - fieldName: language_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+    - fieldName: length
+      orderByDirections:
+        enableAll: true
+    - fieldName: original_language_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: rating
+      orderByDirections:
+        enableAll: true
+    - fieldName: release_year
+      orderByDirections:
+        enableAll: true
+    - fieldName: rental_duration
+      orderByDirections:
+        enableAll: true
+    - fieldName: rental_rate
+      orderByDirections:
+        enableAll: true
+    - fieldName: replacement_cost
+      orderByDirections:
+        enableAll: true
+    - fieldName: special_features
+      orderByDirections:
+        enableAll: true
+    - fieldName: title
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: film
+      subscription:
+        rootField: film
+    selectUniques:
+      - queryRootField: film_by_film_id
+        uniqueIdentifier:
+          - film_id
+        subscription:
+          rootField: film_by_film_id
+    orderByExpressionType: film_order_by
+    filterInputTypeName: film_filter_input
+    aggregate:
+      queryRootField: film_aggregate
+      subscription:
+        rootField: film_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: film
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: language
+  sourceType: film
+  target:
+    model:
+      name: language
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: language_id
+      target:
+        modelField:
+          - fieldName: language_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: language_by_original_language_id
+  sourceType: film
+  target:
+    model:
+      name: language
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: original_language_id
+      target:
+        modelField:
+          - fieldName: language_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: film_actors
+  sourceType: film
+  target:
+    model:
+      name: film_actor
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: film_actor_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: film_id
+      target:
+        modelField:
+          - fieldName: film_id
+  graphql:
+    aggregateFieldName: film_actors_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: film_categories
+  sourceType: film
+  target:
+    model:
+      name: film_category
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: film_category_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: film_id
+      target:
+        modelField:
+          - fieldName: film_id
+  graphql:
+    aggregateFieldName: film_categories_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: inventories
+  sourceType: film
+  target:
+    model:
+      name: inventory
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: inventory_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: film_id
+      target:
+        modelField:
+          - fieldName: film_id
+  graphql:
+    aggregateFieldName: inventories_aggregate
+

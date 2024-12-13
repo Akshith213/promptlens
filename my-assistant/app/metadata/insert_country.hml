@@ -1,0 +1,94 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_country_object
+  fields:
+    - name: country
+      type: text!
+    - name: country_id
+      type: int4
+    - name: last_update
+      type: timestamptz
+  graphql:
+    typeName: insert_country_object
+    inputTypeName: insert_country_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_country_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_country_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - country
+          - country_id
+          - last_update
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_country_response
+  description: Responses from the 'insert_country' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[country!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_country_response
+    inputTypeName: insert_country_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_country_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_country_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_country
+  outputType: insert_country_response!
+  arguments:
+    - name: objects
+      type: "[insert_country_object!]!"
+    - name: post_check
+      type: country_bool_exp
+      description: Insert permission predicate over the 'country' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_country
+  graphql:
+    rootFieldName: insert_country
+    rootFieldKind: Mutation
+  description: Insert into the country table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_country
+  permissions:
+    - role: admin
+      allowExecution: true
+

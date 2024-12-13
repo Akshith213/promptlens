@@ -1,0 +1,97 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_store_object
+  fields:
+    - name: address_id
+      type: int4!
+    - name: last_update
+      type: timestamptz
+    - name: manager_staff_id
+      type: int4!
+    - name: store_id
+      type: int4
+  graphql:
+    typeName: insert_store_object
+    inputTypeName: insert_store_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_store_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_store_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address_id
+          - last_update
+          - manager_staff_id
+          - store_id
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_store_response
+  description: Responses from the 'insert_store' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[store!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_store_response
+    inputTypeName: insert_store_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_store_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_store_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_store
+  outputType: insert_store_response!
+  arguments:
+    - name: objects
+      type: "[insert_store_object!]!"
+    - name: post_check
+      type: store_bool_exp
+      description: Insert permission predicate over the 'store' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_store
+  graphql:
+    rootFieldName: insert_store
+    rootFieldKind: Mutation
+  description: Insert into the store table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_store
+  permissions:
+    - role: admin
+      allowExecution: true
+

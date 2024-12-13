@@ -1,0 +1,404 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: staff
+  fields:
+    - name: active
+      type: bool!
+    - name: address_id
+      type: int4!
+    - name: email
+      type: text
+    - name: first_name
+      type: text!
+    - name: last_name
+      type: text!
+    - name: last_update
+      type: timestamptz!
+    - name: password
+      type: text
+    - name: picture
+      type: bytea
+    - name: staff_id
+      type: int4!
+    - name: store_id
+      type: int4!
+    - name: username
+      type: text!
+  graphql:
+    typeName: staff
+    inputTypeName: staff_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: staff
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: staff
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - address_id
+          - email
+          - first_name
+          - last_name
+          - last_update
+          - password
+          - picture
+          - staff_id
+          - store_id
+          - username
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: staff_bool_exp
+  operand:
+    object:
+      type: staff
+      comparableFields:
+        - fieldName: active
+          booleanExpressionType: bool_bool_exp
+        - fieldName: address_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: email
+          booleanExpressionType: text_bool_exp
+        - fieldName: first_name
+          booleanExpressionType: text_bool_exp
+        - fieldName: last_name
+          booleanExpressionType: text_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+        - fieldName: password
+          booleanExpressionType: text_bool_exp
+        - fieldName: picture
+          booleanExpressionType: bytea_bool_exp
+        - fieldName: staff_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: store_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: username
+          booleanExpressionType: text_bool_exp
+      comparableRelationships:
+        - relationshipName: payment_p2022_01s
+        - relationshipName: payment_p2022_02s
+        - relationshipName: payment_p2022_03s
+        - relationshipName: payment_p2022_04s
+        - relationshipName: payment_p2022_05s
+        - relationshipName: payment_p2022_06s
+        - relationshipName: rentals
+        - relationshipName: address
+        - relationshipName: store
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: staff_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: staff_agg_exp
+  operand:
+    object:
+      aggregatedType: staff
+      aggregatableFields:
+        - fieldName: active
+          aggregateExpression: bool_agg_exp
+        - fieldName: address_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: email
+          aggregateExpression: text_agg_exp
+        - fieldName: first_name
+          aggregateExpression: text_agg_exp
+        - fieldName: last_name
+          aggregateExpression: text_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+        - fieldName: password
+          aggregateExpression: text_agg_exp
+        - fieldName: picture
+          aggregateExpression: bytea_agg_exp
+        - fieldName: staff_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: store_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: username
+          aggregateExpression: text_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: staff_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: staff
+  objectType: staff
+  source:
+    dataConnectorName: mypostgres
+    collection: staff
+  filterExpressionType: staff_bool_exp
+  aggregateExpression: staff_agg_exp
+  orderableFields:
+    - fieldName: active
+      orderByDirections:
+        enableAll: true
+    - fieldName: address_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: email
+      orderByDirections:
+        enableAll: true
+    - fieldName: first_name
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_name
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+    - fieldName: password
+      orderByDirections:
+        enableAll: true
+    - fieldName: picture
+      orderByDirections:
+        enableAll: true
+    - fieldName: staff_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: store_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: username
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: staff
+      subscription:
+        rootField: staff
+    selectUniques:
+      - queryRootField: staff_by_staff_id
+        uniqueIdentifier:
+          - staff_id
+        subscription:
+          rootField: staff_by_staff_id
+    orderByExpressionType: staff_order_by
+    filterInputTypeName: staff_filter_input
+    aggregate:
+      queryRootField: staff_aggregate
+      subscription:
+        rootField: staff_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: staff
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_01s
+  sourceType: staff
+  target:
+    model:
+      name: payment_p2022_01
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_01_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: staff_id
+      target:
+        modelField:
+          - fieldName: staff_id
+  graphql:
+    aggregateFieldName: payment_p2022_01s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_02s
+  sourceType: staff
+  target:
+    model:
+      name: payment_p2022_02
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_02_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: staff_id
+      target:
+        modelField:
+          - fieldName: staff_id
+  graphql:
+    aggregateFieldName: payment_p2022_02s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_03s
+  sourceType: staff
+  target:
+    model:
+      name: payment_p2022_03
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_03_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: staff_id
+      target:
+        modelField:
+          - fieldName: staff_id
+  graphql:
+    aggregateFieldName: payment_p2022_03s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_04s
+  sourceType: staff
+  target:
+    model:
+      name: payment_p2022_04
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_04_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: staff_id
+      target:
+        modelField:
+          - fieldName: staff_id
+  graphql:
+    aggregateFieldName: payment_p2022_04s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_05s
+  sourceType: staff
+  target:
+    model:
+      name: payment_p2022_05
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_05_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: staff_id
+      target:
+        modelField:
+          - fieldName: staff_id
+  graphql:
+    aggregateFieldName: payment_p2022_05s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_06s
+  sourceType: staff
+  target:
+    model:
+      name: payment_p2022_06
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_06_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: staff_id
+      target:
+        modelField:
+          - fieldName: staff_id
+  graphql:
+    aggregateFieldName: payment_p2022_06s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: rentals
+  sourceType: staff
+  target:
+    model:
+      name: rental
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: rental_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: staff_id
+      target:
+        modelField:
+          - fieldName: staff_id
+  graphql:
+    aggregateFieldName: rentals_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: address
+  sourceType: staff
+  target:
+    model:
+      name: address
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: address_id
+      target:
+        modelField:
+          - fieldName: address_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: store
+  sourceType: staff
+  target:
+    model:
+      name: store
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: store_id
+      target:
+        modelField:
+          - fieldName: store_id
+

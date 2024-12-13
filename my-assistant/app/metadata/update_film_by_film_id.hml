@@ -1,0 +1,539 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_description
+  description: Update the 'description' column in the 'film' collection
+  fields:
+    - name: _set
+      type: text
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_description
+    inputTypeName: update_column_film_description_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_description
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_description
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_film_id
+  description: Update the 'film_id' column in the 'film' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_film_id
+    inputTypeName: update_column_film_film_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_film_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_film_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_fulltext
+  description: Update the 'fulltext' column in the 'film' collection
+  fields:
+    - name: _set
+      type: tsvector!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_fulltext
+    inputTypeName: update_column_film_fulltext_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_fulltext
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_fulltext
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_language_id
+  description: Update the 'language_id' column in the 'film' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_language_id
+    inputTypeName: update_column_film_language_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_language_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_language_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_last_update
+  description: Update the 'last_update' column in the 'film' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_last_update
+    inputTypeName: update_column_film_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_length
+  description: Update the 'length' column in the 'film' collection
+  fields:
+    - name: _set
+      type: int2
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_length
+    inputTypeName: update_column_film_length_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_length
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_length
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_original_language_id
+  description: Update the 'original_language_id' column in the 'film' collection
+  fields:
+    - name: _set
+      type: int4
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_original_language_id
+    inputTypeName: update_column_film_original_language_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_original_language_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_original_language_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_rating
+  description: Update the 'rating' column in the 'film' collection
+  fields:
+    - name: _set
+      type: mpaa_rating
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_rating
+    inputTypeName: update_column_film_rating_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_rating
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_rating
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_release_year
+  description: Update the 'release_year' column in the 'film' collection
+  fields:
+    - name: _set
+      type: year
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_release_year
+    inputTypeName: update_column_film_release_year_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_release_year
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_release_year
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_rental_duration
+  description: Update the 'rental_duration' column in the 'film' collection
+  fields:
+    - name: _set
+      type: int2!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_rental_duration
+    inputTypeName: update_column_film_rental_duration_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_rental_duration
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_rental_duration
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_rental_rate
+  description: Update the 'rental_rate' column in the 'film' collection
+  fields:
+    - name: _set
+      type: numeric!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_rental_rate
+    inputTypeName: update_column_film_rental_rate_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_rental_rate
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_rental_rate
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_replacement_cost
+  description: Update the 'replacement_cost' column in the 'film' collection
+  fields:
+    - name: _set
+      type: numeric!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_replacement_cost
+    inputTypeName: update_column_film_replacement_cost_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_replacement_cost
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_replacement_cost
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_special_features
+  description: Update the 'special_features' column in the 'film' collection
+  fields:
+    - name: _set
+      type: "[text]"
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_special_features
+    inputTypeName: update_column_film_special_features_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_special_features
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_special_features
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_film_title
+  description: Update the 'title' column in the 'film' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_film_title
+    inputTypeName: update_column_film_title_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_film_title
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_film_title
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_film_by_film_id_update_columns
+  description: Update the columns of the 'film' collection
+  fields:
+    - name: description
+      type: update_column_film_description
+      description: Update the 'description' column in the 'film' collection.
+    - name: film_id
+      type: update_column_film_film_id
+      description: Update the 'film_id' column in the 'film' collection.
+    - name: fulltext
+      type: update_column_film_fulltext
+      description: Update the 'fulltext' column in the 'film' collection.
+    - name: language_id
+      type: update_column_film_language_id
+      description: Update the 'language_id' column in the 'film' collection.
+    - name: last_update
+      type: update_column_film_last_update
+      description: Update the 'last_update' column in the 'film' collection.
+    - name: length
+      type: update_column_film_length
+      description: Update the 'length' column in the 'film' collection.
+    - name: original_language_id
+      type: update_column_film_original_language_id
+      description: Update the 'original_language_id' column in the 'film' collection.
+    - name: rating
+      type: update_column_film_rating
+      description: Update the 'rating' column in the 'film' collection.
+    - name: release_year
+      type: update_column_film_release_year
+      description: Update the 'release_year' column in the 'film' collection.
+    - name: rental_duration
+      type: update_column_film_rental_duration
+      description: Update the 'rental_duration' column in the 'film' collection.
+    - name: rental_rate
+      type: update_column_film_rental_rate
+      description: Update the 'rental_rate' column in the 'film' collection.
+    - name: replacement_cost
+      type: update_column_film_replacement_cost
+      description: Update the 'replacement_cost' column in the 'film' collection.
+    - name: special_features
+      type: update_column_film_special_features
+      description: Update the 'special_features' column in the 'film' collection.
+    - name: title
+      type: update_column_film_title
+      description: Update the 'title' column in the 'film' collection.
+  graphql:
+    typeName: update_film_by_film_id_update_columns
+    inputTypeName: update_film_by_film_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_film_by_film_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_film_by_film_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - description
+          - film_id
+          - fulltext
+          - language_id
+          - last_update
+          - length
+          - original_language_id
+          - rating
+          - release_year
+          - rental_duration
+          - rental_rate
+          - replacement_cost
+          - special_features
+          - title
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_film_by_film_id_response
+  description: Responses from the 'update_film_by_film_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[film!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_film_by_film_id_response
+    inputTypeName: update_film_by_film_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_film_by_film_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_film_by_film_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_film_by_film_id
+  outputType: update_film_by_film_id_response!
+  arguments:
+    - name: key_film_id
+      type: int4!
+    - name: post_check
+      type: film_bool_exp
+      description: Update permission post-condition predicate over the 'film' collection
+    - name: pre_check
+      type: film_bool_exp
+      description: Update permission pre-condition predicate over the 'film' collection
+    - name: update_columns
+      type: update_film_by_film_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_film_by_film_id
+  graphql:
+    rootFieldName: update_film_by_film_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'film' collection using the 'film_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_film_by_film_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

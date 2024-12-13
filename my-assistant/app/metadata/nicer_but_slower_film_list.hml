@@ -1,0 +1,170 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: nicer_but_slower_film_list
+  fields:
+    - name: actors
+      type: text
+    - name: category
+      type: text
+    - name: description
+      type: text
+    - name: fid
+      type: int4
+    - name: length
+      type: int2
+    - name: price
+      type: numeric
+    - name: rating
+      type: mpaa_rating
+    - name: title
+      type: text
+  graphql:
+    typeName: nicer_but_slower_film_list
+    inputTypeName: nicer_but_slower_film_list_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: nicer_but_slower_film_list
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: nicer_but_slower_film_list
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - actors
+          - category
+          - description
+          - fid
+          - length
+          - price
+          - rating
+          - title
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: nicer_but_slower_film_list_bool_exp
+  operand:
+    object:
+      type: nicer_but_slower_film_list
+      comparableFields:
+        - fieldName: actors
+          booleanExpressionType: text_bool_exp
+        - fieldName: category
+          booleanExpressionType: text_bool_exp
+        - fieldName: description
+          booleanExpressionType: text_bool_exp
+        - fieldName: fid
+          booleanExpressionType: int4_bool_exp
+        - fieldName: length
+          booleanExpressionType: int2_bool_exp
+        - fieldName: price
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: rating
+          booleanExpressionType: mpaa_rating_bool_exp
+        - fieldName: title
+          booleanExpressionType: text_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: nicer_but_slower_film_list_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: nicer_but_slower_film_list_agg_exp
+  operand:
+    object:
+      aggregatedType: nicer_but_slower_film_list
+      aggregatableFields:
+        - fieldName: actors
+          aggregateExpression: text_agg_exp
+        - fieldName: category
+          aggregateExpression: text_agg_exp
+        - fieldName: description
+          aggregateExpression: text_agg_exp
+        - fieldName: fid
+          aggregateExpression: int4_agg_exp
+        - fieldName: length
+          aggregateExpression: int2_agg_exp
+        - fieldName: price
+          aggregateExpression: numeric_agg_exp
+        - fieldName: rating
+          aggregateExpression: mpaa_rating_agg_exp
+        - fieldName: title
+          aggregateExpression: text_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: nicer_but_slower_film_list_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: nicer_but_slower_film_list
+  objectType: nicer_but_slower_film_list
+  source:
+    dataConnectorName: mypostgres
+    collection: nicer_but_slower_film_list
+  filterExpressionType: nicer_but_slower_film_list_bool_exp
+  aggregateExpression: nicer_but_slower_film_list_agg_exp
+  orderableFields:
+    - fieldName: actors
+      orderByDirections:
+        enableAll: true
+    - fieldName: category
+      orderByDirections:
+        enableAll: true
+    - fieldName: description
+      orderByDirections:
+        enableAll: true
+    - fieldName: fid
+      orderByDirections:
+        enableAll: true
+    - fieldName: length
+      orderByDirections:
+        enableAll: true
+    - fieldName: price
+      orderByDirections:
+        enableAll: true
+    - fieldName: rating
+      orderByDirections:
+        enableAll: true
+    - fieldName: title
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: nicer_but_slower_film_list
+      subscription:
+        rootField: nicer_but_slower_film_list
+    selectUniques: []
+    orderByExpressionType: nicer_but_slower_film_list_order_by
+    filterInputTypeName: nicer_but_slower_film_list_filter_input
+    aggregate:
+      queryRootField: nicer_but_slower_film_list_aggregate
+      subscription:
+        rootField: nicer_but_slower_film_list_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: nicer_but_slower_film_list
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

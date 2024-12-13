@@ -1,0 +1,177 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: city
+  fields:
+    - name: city
+      type: text!
+    - name: city_id
+      type: int4!
+    - name: country_id
+      type: int4!
+    - name: last_update
+      type: timestamptz!
+  graphql:
+    typeName: city
+    inputTypeName: city_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: city
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: city
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - city
+          - city_id
+          - country_id
+          - last_update
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: city_bool_exp
+  operand:
+    object:
+      type: city
+      comparableFields:
+        - fieldName: city
+          booleanExpressionType: text_bool_exp
+        - fieldName: city_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: country_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+      comparableRelationships:
+        - relationshipName: addresses
+        - relationshipName: country
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: city_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: city_agg_exp
+  operand:
+    object:
+      aggregatedType: city
+      aggregatableFields:
+        - fieldName: city
+          aggregateExpression: text_agg_exp
+        - fieldName: city_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: country_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: city_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: city
+  objectType: city
+  source:
+    dataConnectorName: mypostgres
+    collection: city
+  filterExpressionType: city_bool_exp
+  aggregateExpression: city_agg_exp
+  orderableFields:
+    - fieldName: city
+      orderByDirections:
+        enableAll: true
+    - fieldName: city_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: country_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: city
+      subscription:
+        rootField: city
+    selectUniques:
+      - queryRootField: city_by_city_id
+        uniqueIdentifier:
+          - city_id
+        subscription:
+          rootField: city_by_city_id
+    orderByExpressionType: city_order_by
+    filterInputTypeName: city_filter_input
+    aggregate:
+      queryRootField: city_aggregate
+      subscription:
+        rootField: city_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: city
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: addresses
+  sourceType: city
+  target:
+    model:
+      name: address
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: address_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: city_id
+      target:
+        modelField:
+          - fieldName: city_id
+  graphql:
+    aggregateFieldName: addresses_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: country
+  sourceType: city
+  target:
+    model:
+      name: country
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: country_id
+      target:
+        modelField:
+          - fieldName: country_id
+

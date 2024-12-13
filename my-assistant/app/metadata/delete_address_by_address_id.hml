@@ -1,0 +1,62 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: delete_address_by_address_id_response
+  description: Responses from the 'delete_address_by_address_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[address!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: delete_address_by_address_id_response
+    inputTypeName: delete_address_by_address_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: delete_address_by_address_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: delete_address_by_address_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: delete_address_by_address_id
+  outputType: delete_address_by_address_id_response!
+  arguments:
+    - name: key_address_id
+      type: int4!
+    - name: pre_check
+      type: address_bool_exp
+      description: Delete permission predicate over the 'address' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: delete_address_by_address_id
+  graphql:
+    rootFieldName: delete_address_by_address_id
+    rootFieldKind: Mutation
+  description: Delete any row on the 'address' collection using the 'address_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: delete_address_by_address_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,394 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: customer
+  fields:
+    - name: active
+      type: int4
+    - name: activebool
+      type: bool!
+    - name: address_id
+      type: int4!
+    - name: create_date
+      type: date!
+    - name: customer_id
+      type: int4!
+    - name: email
+      type: text
+    - name: first_name
+      type: text!
+    - name: last_name
+      type: text!
+    - name: last_update
+      type: timestamptz
+    - name: store_id
+      type: int4!
+  graphql:
+    typeName: customer
+    inputTypeName: customer_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: customer
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: customer
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - activebool
+          - address_id
+          - create_date
+          - customer_id
+          - email
+          - first_name
+          - last_name
+          - last_update
+          - store_id
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: customer_bool_exp
+  operand:
+    object:
+      type: customer
+      comparableFields:
+        - fieldName: active
+          booleanExpressionType: int4_bool_exp
+        - fieldName: activebool
+          booleanExpressionType: bool_bool_exp
+        - fieldName: address_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: create_date
+          booleanExpressionType: date_bool_exp
+        - fieldName: customer_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: email
+          booleanExpressionType: text_bool_exp
+        - fieldName: first_name
+          booleanExpressionType: text_bool_exp
+        - fieldName: last_name
+          booleanExpressionType: text_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+        - fieldName: store_id
+          booleanExpressionType: int4_bool_exp
+      comparableRelationships:
+        - relationshipName: address
+        - relationshipName: store
+        - relationshipName: payment_p2022_01s
+        - relationshipName: payment_p2022_02s
+        - relationshipName: payment_p2022_03s
+        - relationshipName: payment_p2022_04s
+        - relationshipName: payment_p2022_05s
+        - relationshipName: payment_p2022_06s
+        - relationshipName: rentals
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: customer_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: customer_agg_exp
+  operand:
+    object:
+      aggregatedType: customer
+      aggregatableFields:
+        - fieldName: active
+          aggregateExpression: int4_agg_exp
+        - fieldName: activebool
+          aggregateExpression: bool_agg_exp
+        - fieldName: address_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: create_date
+          aggregateExpression: date_agg_exp
+        - fieldName: customer_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: email
+          aggregateExpression: text_agg_exp
+        - fieldName: first_name
+          aggregateExpression: text_agg_exp
+        - fieldName: last_name
+          aggregateExpression: text_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+        - fieldName: store_id
+          aggregateExpression: int4_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: customer_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: customer
+  objectType: customer
+  source:
+    dataConnectorName: mypostgres
+    collection: customer
+  filterExpressionType: customer_bool_exp
+  aggregateExpression: customer_agg_exp
+  orderableFields:
+    - fieldName: active
+      orderByDirections:
+        enableAll: true
+    - fieldName: activebool
+      orderByDirections:
+        enableAll: true
+    - fieldName: address_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: create_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: customer_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: email
+      orderByDirections:
+        enableAll: true
+    - fieldName: first_name
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_name
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+    - fieldName: store_id
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: customer
+      subscription:
+        rootField: customer
+    selectUniques:
+      - queryRootField: customer_by_customer_id
+        uniqueIdentifier:
+          - customer_id
+        subscription:
+          rootField: customer_by_customer_id
+    orderByExpressionType: customer_order_by
+    filterInputTypeName: customer_filter_input
+    aggregate:
+      queryRootField: customer_aggregate
+      subscription:
+        rootField: customer_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: customer
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: address
+  sourceType: customer
+  target:
+    model:
+      name: address
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: address_id
+      target:
+        modelField:
+          - fieldName: address_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: store
+  sourceType: customer
+  target:
+    model:
+      name: store
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: store_id
+      target:
+        modelField:
+          - fieldName: store_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_01s
+  sourceType: customer
+  target:
+    model:
+      name: payment_p2022_01
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_01_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: customer_id
+      target:
+        modelField:
+          - fieldName: customer_id
+  graphql:
+    aggregateFieldName: payment_p2022_01s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_02s
+  sourceType: customer
+  target:
+    model:
+      name: payment_p2022_02
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_02_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: customer_id
+      target:
+        modelField:
+          - fieldName: customer_id
+  graphql:
+    aggregateFieldName: payment_p2022_02s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_03s
+  sourceType: customer
+  target:
+    model:
+      name: payment_p2022_03
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_03_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: customer_id
+      target:
+        modelField:
+          - fieldName: customer_id
+  graphql:
+    aggregateFieldName: payment_p2022_03s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_04s
+  sourceType: customer
+  target:
+    model:
+      name: payment_p2022_04
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_04_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: customer_id
+      target:
+        modelField:
+          - fieldName: customer_id
+  graphql:
+    aggregateFieldName: payment_p2022_04s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_05s
+  sourceType: customer
+  target:
+    model:
+      name: payment_p2022_05
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_05_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: customer_id
+      target:
+        modelField:
+          - fieldName: customer_id
+  graphql:
+    aggregateFieldName: payment_p2022_05s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: payment_p2022_06s
+  sourceType: customer
+  target:
+    model:
+      name: payment_p2022_06
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: payment_p2022_06_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: customer_id
+      target:
+        modelField:
+          - fieldName: customer_id
+  graphql:
+    aggregateFieldName: payment_p2022_06s_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: rentals
+  sourceType: customer
+  target:
+    model:
+      name: rental
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: rental_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: customer_id
+      target:
+        modelField:
+          - fieldName: customer_id
+  graphql:
+    aggregateFieldName: rentals_aggregate
+

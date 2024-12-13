@@ -1,0 +1,127 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_film_object
+  fields:
+    - name: description
+      type: text
+    - name: film_id
+      type: int4
+    - name: fulltext
+      type: tsvector!
+    - name: language_id
+      type: int4!
+    - name: last_update
+      type: timestamptz
+    - name: length
+      type: int2
+    - name: original_language_id
+      type: int4
+    - name: rating
+      type: mpaa_rating
+    - name: release_year
+      type: year
+    - name: rental_duration
+      type: int2
+    - name: rental_rate
+      type: numeric
+    - name: replacement_cost
+      type: numeric
+    - name: special_features
+      type: "[text]"
+    - name: title
+      type: text!
+  graphql:
+    typeName: insert_film_object
+    inputTypeName: insert_film_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_film_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_film_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - description
+          - film_id
+          - fulltext
+          - language_id
+          - last_update
+          - length
+          - original_language_id
+          - rating
+          - release_year
+          - rental_duration
+          - rental_rate
+          - replacement_cost
+          - special_features
+          - title
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_film_response
+  description: Responses from the 'insert_film' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[film!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_film_response
+    inputTypeName: insert_film_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_film_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_film_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_film
+  outputType: insert_film_response!
+  arguments:
+    - name: objects
+      type: "[insert_film_object!]!"
+    - name: post_check
+      type: film_bool_exp
+      description: Insert permission predicate over the 'film' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_film
+  graphql:
+    rootFieldName: insert_film
+    rootFieldKind: Mutation
+  description: Insert into the film table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_film
+  permissions:
+    - role: admin
+      allowExecution: true
+

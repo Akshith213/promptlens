@@ -1,0 +1,94 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_film_actor_object
+  fields:
+    - name: actor_id
+      type: int4!
+    - name: film_id
+      type: int4!
+    - name: last_update
+      type: timestamptz
+  graphql:
+    typeName: insert_film_actor_object
+    inputTypeName: insert_film_actor_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_film_actor_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_film_actor_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - actor_id
+          - film_id
+          - last_update
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_film_actor_response
+  description: Responses from the 'insert_film_actor' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[film_actor!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_film_actor_response
+    inputTypeName: insert_film_actor_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_film_actor_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_film_actor_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_film_actor
+  outputType: insert_film_actor_response!
+  arguments:
+    - name: objects
+      type: "[insert_film_actor_object!]!"
+    - name: post_check
+      type: film_actor_bool_exp
+      description: Insert permission predicate over the 'film_actor' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_film_actor
+  graphql:
+    rootFieldName: insert_film_actor
+    rootFieldKind: Mutation
+  description: Insert into the film_actor table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_film_actor
+  permissions:
+    - role: admin
+      allowExecution: true
+

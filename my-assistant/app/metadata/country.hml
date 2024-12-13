@@ -1,0 +1,148 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: country
+  fields:
+    - name: country
+      type: text!
+    - name: country_id
+      type: int4!
+    - name: last_update
+      type: timestamptz!
+  graphql:
+    typeName: country
+    inputTypeName: country_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: country
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: country
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - country
+          - country_id
+          - last_update
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: country_bool_exp
+  operand:
+    object:
+      type: country
+      comparableFields:
+        - fieldName: country
+          booleanExpressionType: text_bool_exp
+        - fieldName: country_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+      comparableRelationships:
+        - relationshipName: cities
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: country_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: country_agg_exp
+  operand:
+    object:
+      aggregatedType: country
+      aggregatableFields:
+        - fieldName: country
+          aggregateExpression: text_agg_exp
+        - fieldName: country_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: country_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: country
+  objectType: country
+  source:
+    dataConnectorName: mypostgres
+    collection: country
+  filterExpressionType: country_bool_exp
+  aggregateExpression: country_agg_exp
+  orderableFields:
+    - fieldName: country
+      orderByDirections:
+        enableAll: true
+    - fieldName: country_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: country
+      subscription:
+        rootField: country
+    selectUniques:
+      - queryRootField: country_by_country_id
+        uniqueIdentifier:
+          - country_id
+        subscription:
+          rootField: country_by_country_id
+    orderByExpressionType: country_order_by
+    filterInputTypeName: country_filter_input
+    aggregate:
+      queryRootField: country_aggregate
+      subscription:
+        rootField: country_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: country
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: cities
+  sourceType: country
+  target:
+    model:
+      name: city
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: city_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: country_id
+      target:
+        modelField:
+          - fieldName: country_id
+  graphql:
+    aggregateFieldName: cities_aggregate
+

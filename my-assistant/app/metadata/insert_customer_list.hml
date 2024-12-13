@@ -1,0 +1,140 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_customer_list_object
+  fields:
+    - name: address
+      type: text
+    - name: city
+      type: text
+    - name: country
+      type: text
+    - name: id
+      type: int4
+    - name: name
+      type: text
+    - name: notes
+      type: text
+    - name: phone
+      type: text
+    - name: sid
+      type: int4
+    - name: zip_code
+      type: text
+  graphql:
+    typeName: insert_customer_list_object
+    inputTypeName: insert_customer_list_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_customer_list_object
+      fieldMapping:
+        address:
+          column:
+            name: address
+        city:
+          column:
+            name: city
+        country:
+          column:
+            name: country
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        notes:
+          column:
+            name: notes
+        phone:
+          column:
+            name: phone
+        sid:
+          column:
+            name: sid
+        zip_code:
+          column:
+            name: zip code
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_customer_list_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - city
+          - country
+          - id
+          - name
+          - notes
+          - phone
+          - sid
+          - zip_code
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_customer_list_response
+  description: Responses from the 'insert_customer_list' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[customer_list!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_customer_list_response
+    inputTypeName: insert_customer_list_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_customer_list_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_customer_list_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_customer_list
+  outputType: insert_customer_list_response!
+  arguments:
+    - name: objects
+      type: "[insert_customer_list_object!]!"
+    - name: post_check
+      type: customer_list_bool_exp
+      description: Insert permission predicate over the 'customer_list' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_customer_list
+  graphql:
+    rootFieldName: insert_customer_list
+    rootFieldKind: Mutation
+  description: Insert into the customer_list table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_customer_list
+  permissions:
+    - role: admin
+      allowExecution: true
+

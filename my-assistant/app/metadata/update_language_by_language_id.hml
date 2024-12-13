@@ -1,0 +1,187 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_language_language_id
+  description: Update the 'language_id' column in the 'language' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_language_language_id
+    inputTypeName: update_column_language_language_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_language_language_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_language_language_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_language_last_update
+  description: Update the 'last_update' column in the 'language' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_language_last_update
+    inputTypeName: update_column_language_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_language_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_language_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_language_name
+  description: Update the 'name' column in the 'language' collection
+  fields:
+    - name: _set
+      type: bpchar!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_language_name
+    inputTypeName: update_column_language_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_language_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_language_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_language_by_language_id_update_columns
+  description: Update the columns of the 'language' collection
+  fields:
+    - name: language_id
+      type: update_column_language_language_id
+      description: Update the 'language_id' column in the 'language' collection.
+    - name: last_update
+      type: update_column_language_last_update
+      description: Update the 'last_update' column in the 'language' collection.
+    - name: name
+      type: update_column_language_name
+      description: Update the 'name' column in the 'language' collection.
+  graphql:
+    typeName: update_language_by_language_id_update_columns
+    inputTypeName: update_language_by_language_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_language_by_language_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_language_by_language_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - language_id
+          - last_update
+          - name
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_language_by_language_id_response
+  description: Responses from the 'update_language_by_language_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[language!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_language_by_language_id_response
+    inputTypeName: update_language_by_language_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_language_by_language_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_language_by_language_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_language_by_language_id
+  outputType: update_language_by_language_id_response!
+  arguments:
+    - name: key_language_id
+      type: int4!
+    - name: post_check
+      type: language_bool_exp
+      description: Update permission post-condition predicate over the 'language' collection
+    - name: pre_check
+      type: language_bool_exp
+      description: Update permission pre-condition predicate over the 'language' collection
+    - name: update_columns
+      type: update_language_by_language_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_language_by_language_id
+  graphql:
+    rootFieldName: update_language_by_language_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'language' collection using the 'language_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_language_by_language_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

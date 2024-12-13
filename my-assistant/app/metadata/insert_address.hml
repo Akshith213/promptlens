@@ -1,0 +1,109 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_address_object
+  fields:
+    - name: address
+      type: text!
+    - name: address_id
+      type: int4
+    - name: address2
+      type: text
+    - name: city_id
+      type: int4!
+    - name: district
+      type: text!
+    - name: last_update
+      type: timestamptz
+    - name: phone
+      type: text!
+    - name: postal_code
+      type: text
+  graphql:
+    typeName: insert_address_object
+    inputTypeName: insert_address_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_address_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_address_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - address_id
+          - address2
+          - city_id
+          - district
+          - last_update
+          - phone
+          - postal_code
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_address_response
+  description: Responses from the 'insert_address' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[address!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_address_response
+    inputTypeName: insert_address_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_address_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_address_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_address
+  outputType: insert_address_response!
+  arguments:
+    - name: objects
+      type: "[insert_address_object!]!"
+    - name: post_check
+      type: address_bool_exp
+      description: Insert permission predicate over the 'address' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_address
+  graphql:
+    rootFieldName: insert_address
+    rootFieldKind: Mutation
+  description: Insert into the address table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_address
+  permissions:
+    - role: admin
+      allowExecution: true
+

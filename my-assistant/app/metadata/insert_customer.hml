@@ -1,0 +1,115 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_customer_object
+  fields:
+    - name: active
+      type: int4
+    - name: activebool
+      type: bool
+    - name: address_id
+      type: int4!
+    - name: create_date
+      type: date
+    - name: customer_id
+      type: int4
+    - name: email
+      type: text
+    - name: first_name
+      type: text!
+    - name: last_name
+      type: text!
+    - name: last_update
+      type: timestamptz
+    - name: store_id
+      type: int4!
+  graphql:
+    typeName: insert_customer_object
+    inputTypeName: insert_customer_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_customer_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_customer_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - activebool
+          - address_id
+          - create_date
+          - customer_id
+          - email
+          - first_name
+          - last_name
+          - last_update
+          - store_id
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_customer_response
+  description: Responses from the 'insert_customer' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[customer!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_customer_response
+    inputTypeName: insert_customer_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_customer_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_customer_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_customer
+  outputType: insert_customer_response!
+  arguments:
+    - name: objects
+      type: "[insert_customer_object!]!"
+    - name: post_check
+      type: customer_bool_exp
+      description: Insert permission predicate over the 'customer' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_customer
+  graphql:
+    rootFieldName: insert_customer
+    rootFieldKind: Mutation
+  description: Insert into the customer table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_customer
+  permissions:
+    - role: admin
+      allowExecution: true
+

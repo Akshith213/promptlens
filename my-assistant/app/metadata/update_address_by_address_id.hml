@@ -1,0 +1,347 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_address
+  description: Update the 'address' column in the 'address' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_address
+    inputTypeName: update_column_address_address_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_address
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_address
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_address_id
+  description: Update the 'address_id' column in the 'address' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_address_id
+    inputTypeName: update_column_address_address_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_address_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_address_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_address2
+  description: Update the 'address2' column in the 'address' collection
+  fields:
+    - name: _set
+      type: text
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_address2
+    inputTypeName: update_column_address_address2_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_address2
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_address2
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_city_id
+  description: Update the 'city_id' column in the 'address' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_city_id
+    inputTypeName: update_column_address_city_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_city_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_city_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_district
+  description: Update the 'district' column in the 'address' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_district
+    inputTypeName: update_column_address_district_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_district
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_district
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_last_update
+  description: Update the 'last_update' column in the 'address' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_last_update
+    inputTypeName: update_column_address_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_phone
+  description: Update the 'phone' column in the 'address' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_phone
+    inputTypeName: update_column_address_phone_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_phone
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_phone
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_address_postal_code
+  description: Update the 'postal_code' column in the 'address' collection
+  fields:
+    - name: _set
+      type: text
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_address_postal_code
+    inputTypeName: update_column_address_postal_code_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_address_postal_code
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_address_postal_code
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_address_by_address_id_update_columns
+  description: Update the columns of the 'address' collection
+  fields:
+    - name: address
+      type: update_column_address_address
+      description: Update the 'address' column in the 'address' collection.
+    - name: address_id
+      type: update_column_address_address_id
+      description: Update the 'address_id' column in the 'address' collection.
+    - name: address2
+      type: update_column_address_address2
+      description: Update the 'address2' column in the 'address' collection.
+    - name: city_id
+      type: update_column_address_city_id
+      description: Update the 'city_id' column in the 'address' collection.
+    - name: district
+      type: update_column_address_district
+      description: Update the 'district' column in the 'address' collection.
+    - name: last_update
+      type: update_column_address_last_update
+      description: Update the 'last_update' column in the 'address' collection.
+    - name: phone
+      type: update_column_address_phone
+      description: Update the 'phone' column in the 'address' collection.
+    - name: postal_code
+      type: update_column_address_postal_code
+      description: Update the 'postal_code' column in the 'address' collection.
+  graphql:
+    typeName: update_address_by_address_id_update_columns
+    inputTypeName: update_address_by_address_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_address_by_address_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_address_by_address_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - address_id
+          - address2
+          - city_id
+          - district
+          - last_update
+          - phone
+          - postal_code
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_address_by_address_id_response
+  description: Responses from the 'update_address_by_address_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[address!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_address_by_address_id_response
+    inputTypeName: update_address_by_address_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_address_by_address_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_address_by_address_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_address_by_address_id
+  outputType: update_address_by_address_id_response!
+  arguments:
+    - name: key_address_id
+      type: int4!
+    - name: post_check
+      type: address_bool_exp
+      description: Update permission post-condition predicate over the 'address' collection
+    - name: pre_check
+      type: address_bool_exp
+      description: Update permission pre-condition predicate over the 'address' collection
+    - name: update_columns
+      type: update_address_by_address_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_address_by_address_id
+  graphql:
+    rootFieldName: update_address_by_address_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'address' collection using the 'address_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_address_by_address_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

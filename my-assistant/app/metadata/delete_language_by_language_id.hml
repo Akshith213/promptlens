@@ -1,0 +1,62 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: delete_language_by_language_id_response
+  description: Responses from the 'delete_language_by_language_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[language!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: delete_language_by_language_id_response
+    inputTypeName: delete_language_by_language_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: delete_language_by_language_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: delete_language_by_language_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: delete_language_by_language_id
+  outputType: delete_language_by_language_id_response!
+  arguments:
+    - name: key_language_id
+      type: int4!
+    - name: pre_check
+      type: language_bool_exp
+      description: Delete permission predicate over the 'language' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: delete_language_by_language_id
+  graphql:
+    rootFieldName: delete_language_by_language_id
+    rootFieldKind: Mutation
+  description: Delete any row on the 'language' collection using the 'language_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: delete_language_by_language_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,208 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: customer_list
+  fields:
+    - name: address
+      type: text
+    - name: city
+      type: text
+    - name: country
+      type: text
+    - name: id
+      type: int4
+    - name: name
+      type: text
+    - name: notes
+      type: text
+    - name: phone
+      type: text
+    - name: sid
+      type: int4
+    - name: zip_code
+      type: text
+  graphql:
+    typeName: customer_list
+    inputTypeName: customer_list_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: customer_list
+      fieldMapping:
+        address:
+          column:
+            name: address
+        city:
+          column:
+            name: city
+        country:
+          column:
+            name: country
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        notes:
+          column:
+            name: notes
+        phone:
+          column:
+            name: phone
+        sid:
+          column:
+            name: sid
+        zip_code:
+          column:
+            name: zip code
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: customer_list
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - city
+          - country
+          - id
+          - name
+          - notes
+          - phone
+          - sid
+          - zip_code
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: customer_list_bool_exp
+  operand:
+    object:
+      type: customer_list
+      comparableFields:
+        - fieldName: address
+          booleanExpressionType: text_bool_exp
+        - fieldName: city
+          booleanExpressionType: text_bool_exp
+        - fieldName: country
+          booleanExpressionType: text_bool_exp
+        - fieldName: id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: name
+          booleanExpressionType: text_bool_exp
+        - fieldName: notes
+          booleanExpressionType: text_bool_exp
+        - fieldName: phone
+          booleanExpressionType: text_bool_exp
+        - fieldName: sid
+          booleanExpressionType: int4_bool_exp
+        - fieldName: zip_code
+          booleanExpressionType: text_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: customer_list_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: customer_list_agg_exp
+  operand:
+    object:
+      aggregatedType: customer_list
+      aggregatableFields:
+        - fieldName: address
+          aggregateExpression: text_agg_exp
+        - fieldName: city
+          aggregateExpression: text_agg_exp
+        - fieldName: country
+          aggregateExpression: text_agg_exp
+        - fieldName: id
+          aggregateExpression: int4_agg_exp
+        - fieldName: name
+          aggregateExpression: text_agg_exp
+        - fieldName: notes
+          aggregateExpression: text_agg_exp
+        - fieldName: phone
+          aggregateExpression: text_agg_exp
+        - fieldName: sid
+          aggregateExpression: int4_agg_exp
+        - fieldName: zip_code
+          aggregateExpression: text_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: customer_list_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: customer_list
+  objectType: customer_list
+  source:
+    dataConnectorName: mypostgres
+    collection: customer_list
+  filterExpressionType: customer_list_bool_exp
+  aggregateExpression: customer_list_agg_exp
+  orderableFields:
+    - fieldName: address
+      orderByDirections:
+        enableAll: true
+    - fieldName: city
+      orderByDirections:
+        enableAll: true
+    - fieldName: country
+      orderByDirections:
+        enableAll: true
+    - fieldName: id
+      orderByDirections:
+        enableAll: true
+    - fieldName: name
+      orderByDirections:
+        enableAll: true
+    - fieldName: notes
+      orderByDirections:
+        enableAll: true
+    - fieldName: phone
+      orderByDirections:
+        enableAll: true
+    - fieldName: sid
+      orderByDirections:
+        enableAll: true
+    - fieldName: zip_code
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: customer_list
+      subscription:
+        rootField: customer_list
+    selectUniques: []
+    orderByExpressionType: customer_list_order_by
+    filterInputTypeName: customer_list_filter_input
+    aggregate:
+      queryRootField: customer_list_aggregate
+      subscription:
+        rootField: customer_list_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: customer_list
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

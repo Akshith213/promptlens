@@ -1,0 +1,66 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: delete_payment_p2022_01_by_payment_date_and_payment_id_response
+  description: Responses from the
+    'delete_payment_p2022_01_by_payment_date_and_payment_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[payment_p2022_01!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: delete_payment_p2022_01_by_payment_date_and_payment_id_response
+    inputTypeName: delete_payment_p2022_01_by_payment_date_and_payment_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: delete_payment_p2022_01_by_payment_date_and_payment_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: delete_payment_p2022_01_by_payment_date_and_payment_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: delete_payment_p2022_01_by_payment_date_and_payment_id
+  outputType: delete_payment_p2022_01_by_payment_date_and_payment_id_response!
+  arguments:
+    - name: key_payment_date
+      type: timestamptz!
+    - name: key_payment_id
+      type: int4!
+    - name: pre_check
+      type: payment_p2022_01_bool_exp
+      description: Delete permission predicate over the 'payment_p2022_01' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: delete_payment_p2022_01_by_payment_date_and_payment_id
+  graphql:
+    rootFieldName: delete_payment_p2022_01_by_payment_date_and_payment_id
+    rootFieldKind: Mutation
+  description: Delete any row on the 'payment_p2022_01' collection using the
+    'payment_date' and 'payment_id' keys
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: delete_payment_p2022_01_by_payment_date_and_payment_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,411 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_active
+  description: Update the 'active' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: int4
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_active
+    inputTypeName: update_column_customer_active_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_active
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_active
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_activebool
+  description: Update the 'activebool' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: bool!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_activebool
+    inputTypeName: update_column_customer_activebool_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_activebool
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_activebool
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_address_id
+  description: Update the 'address_id' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_address_id
+    inputTypeName: update_column_customer_address_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_address_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_address_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_create_date
+  description: Update the 'create_date' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: date!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_create_date
+    inputTypeName: update_column_customer_create_date_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_create_date
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_create_date
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_customer_id
+  description: Update the 'customer_id' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_customer_id
+    inputTypeName: update_column_customer_customer_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_customer_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_customer_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_email
+  description: Update the 'email' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: text
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_email
+    inputTypeName: update_column_customer_email_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_email
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_email
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_first_name
+  description: Update the 'first_name' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_first_name
+    inputTypeName: update_column_customer_first_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_first_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_first_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_last_name
+  description: Update the 'last_name' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_last_name
+    inputTypeName: update_column_customer_last_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_last_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_last_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_last_update
+  description: Update the 'last_update' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_last_update
+    inputTypeName: update_column_customer_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_customer_store_id
+  description: Update the 'store_id' column in the 'customer' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_customer_store_id
+    inputTypeName: update_column_customer_store_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_customer_store_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_customer_store_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_customer_by_customer_id_update_columns
+  description: Update the columns of the 'customer' collection
+  fields:
+    - name: active
+      type: update_column_customer_active
+      description: Update the 'active' column in the 'customer' collection.
+    - name: activebool
+      type: update_column_customer_activebool
+      description: Update the 'activebool' column in the 'customer' collection.
+    - name: address_id
+      type: update_column_customer_address_id
+      description: Update the 'address_id' column in the 'customer' collection.
+    - name: create_date
+      type: update_column_customer_create_date
+      description: Update the 'create_date' column in the 'customer' collection.
+    - name: customer_id
+      type: update_column_customer_customer_id
+      description: Update the 'customer_id' column in the 'customer' collection.
+    - name: email
+      type: update_column_customer_email
+      description: Update the 'email' column in the 'customer' collection.
+    - name: first_name
+      type: update_column_customer_first_name
+      description: Update the 'first_name' column in the 'customer' collection.
+    - name: last_name
+      type: update_column_customer_last_name
+      description: Update the 'last_name' column in the 'customer' collection.
+    - name: last_update
+      type: update_column_customer_last_update
+      description: Update the 'last_update' column in the 'customer' collection.
+    - name: store_id
+      type: update_column_customer_store_id
+      description: Update the 'store_id' column in the 'customer' collection.
+  graphql:
+    typeName: update_customer_by_customer_id_update_columns
+    inputTypeName: update_customer_by_customer_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_customer_by_customer_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_customer_by_customer_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - activebool
+          - address_id
+          - create_date
+          - customer_id
+          - email
+          - first_name
+          - last_name
+          - last_update
+          - store_id
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_customer_by_customer_id_response
+  description: Responses from the 'update_customer_by_customer_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[customer!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_customer_by_customer_id_response
+    inputTypeName: update_customer_by_customer_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_customer_by_customer_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_customer_by_customer_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_customer_by_customer_id
+  outputType: update_customer_by_customer_id_response!
+  arguments:
+    - name: key_customer_id
+      type: int4!
+    - name: post_check
+      type: customer_bool_exp
+      description: Update permission post-condition predicate over the 'customer' collection
+    - name: pre_check
+      type: customer_bool_exp
+      description: Update permission pre-condition predicate over the 'customer' collection
+    - name: update_columns
+      type: update_customer_by_customer_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_customer_by_customer_id
+  graphql:
+    rootFieldName: update_customer_by_customer_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'customer' collection using the 'customer_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_customer_by_customer_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,62 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: delete_rental_by_rental_id_response
+  description: Responses from the 'delete_rental_by_rental_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[rental!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: delete_rental_by_rental_id_response
+    inputTypeName: delete_rental_by_rental_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: delete_rental_by_rental_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: delete_rental_by_rental_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: delete_rental_by_rental_id
+  outputType: delete_rental_by_rental_id_response!
+  arguments:
+    - name: key_rental_id
+      type: int4!
+    - name: pre_check
+      type: rental_bool_exp
+      description: Delete permission predicate over the 'rental' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: delete_rental_by_rental_id
+  graphql:
+    rootFieldName: delete_rental_by_rental_id
+    rootFieldKind: Mutation
+  description: Delete any row on the 'rental' collection using the 'rental_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: delete_rental_by_rental_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

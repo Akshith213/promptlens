@@ -1,0 +1,219 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_actor_actor_id
+  description: Update the 'actor_id' column in the 'actor' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_actor_actor_id
+    inputTypeName: update_column_actor_actor_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_actor_actor_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_actor_actor_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_actor_first_name
+  description: Update the 'first_name' column in the 'actor' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_actor_first_name
+    inputTypeName: update_column_actor_first_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_actor_first_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_actor_first_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_actor_last_name
+  description: Update the 'last_name' column in the 'actor' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_actor_last_name
+    inputTypeName: update_column_actor_last_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_actor_last_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_actor_last_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_actor_last_update
+  description: Update the 'last_update' column in the 'actor' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_actor_last_update
+    inputTypeName: update_column_actor_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_actor_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_actor_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_actor_by_actor_id_update_columns
+  description: Update the columns of the 'actor' collection
+  fields:
+    - name: actor_id
+      type: update_column_actor_actor_id
+      description: Update the 'actor_id' column in the 'actor' collection.
+    - name: first_name
+      type: update_column_actor_first_name
+      description: Update the 'first_name' column in the 'actor' collection.
+    - name: last_name
+      type: update_column_actor_last_name
+      description: Update the 'last_name' column in the 'actor' collection.
+    - name: last_update
+      type: update_column_actor_last_update
+      description: Update the 'last_update' column in the 'actor' collection.
+  graphql:
+    typeName: update_actor_by_actor_id_update_columns
+    inputTypeName: update_actor_by_actor_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_actor_by_actor_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_actor_by_actor_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - actor_id
+          - first_name
+          - last_name
+          - last_update
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_actor_by_actor_id_response
+  description: Responses from the 'update_actor_by_actor_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[actor!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_actor_by_actor_id_response
+    inputTypeName: update_actor_by_actor_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_actor_by_actor_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_actor_by_actor_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_actor_by_actor_id
+  outputType: update_actor_by_actor_id_response!
+  arguments:
+    - name: key_actor_id
+      type: int4!
+    - name: post_check
+      type: actor_bool_exp
+      description: Update permission post-condition predicate over the 'actor' collection
+    - name: pre_check
+      type: actor_bool_exp
+      description: Update permission pre-condition predicate over the 'actor' collection
+    - name: update_columns
+      type: update_actor_by_actor_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_actor_by_actor_id
+  graphql:
+    rootFieldName: update_actor_by_actor_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'actor' collection using the 'actor_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_actor_by_actor_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,196 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: inventory
+  fields:
+    - name: film_id
+      type: int4!
+    - name: inventory_id
+      type: int4!
+    - name: last_update
+      type: timestamptz!
+    - name: store_id
+      type: int4!
+  graphql:
+    typeName: inventory
+    inputTypeName: inventory_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: inventory
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: inventory
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - film_id
+          - inventory_id
+          - last_update
+          - store_id
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: inventory_bool_exp
+  operand:
+    object:
+      type: inventory
+      comparableFields:
+        - fieldName: film_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: inventory_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+        - fieldName: store_id
+          booleanExpressionType: int4_bool_exp
+      comparableRelationships:
+        - relationshipName: film
+        - relationshipName: store
+        - relationshipName: rentals
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: inventory_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: inventory_agg_exp
+  operand:
+    object:
+      aggregatedType: inventory
+      aggregatableFields:
+        - fieldName: film_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: inventory_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+        - fieldName: store_id
+          aggregateExpression: int4_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: inventory_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: inventory
+  objectType: inventory
+  source:
+    dataConnectorName: mypostgres
+    collection: inventory
+  filterExpressionType: inventory_bool_exp
+  aggregateExpression: inventory_agg_exp
+  orderableFields:
+    - fieldName: film_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: inventory_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+    - fieldName: store_id
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: inventory
+      subscription:
+        rootField: inventory
+    selectUniques:
+      - queryRootField: inventory_by_inventory_id
+        uniqueIdentifier:
+          - inventory_id
+        subscription:
+          rootField: inventory_by_inventory_id
+    orderByExpressionType: inventory_order_by
+    filterInputTypeName: inventory_filter_input
+    aggregate:
+      queryRootField: inventory_aggregate
+      subscription:
+        rootField: inventory_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: inventory
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: film
+  sourceType: inventory
+  target:
+    model:
+      name: film
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: film_id
+      target:
+        modelField:
+          - fieldName: film_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: store
+  sourceType: inventory
+  target:
+    model:
+      name: store
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: store_id
+      target:
+        modelField:
+          - fieldName: store_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: rentals
+  sourceType: inventory
+  target:
+    model:
+      name: rental
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: rental_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: inventory_id
+      target:
+        modelField:
+          - fieldName: inventory_id
+  graphql:
+    aggregateFieldName: rentals_aggregate
+

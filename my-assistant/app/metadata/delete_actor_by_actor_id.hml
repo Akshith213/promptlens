@@ -1,0 +1,62 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: delete_actor_by_actor_id_response
+  description: Responses from the 'delete_actor_by_actor_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[actor!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: delete_actor_by_actor_id_response
+    inputTypeName: delete_actor_by_actor_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: delete_actor_by_actor_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: delete_actor_by_actor_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: delete_actor_by_actor_id
+  outputType: delete_actor_by_actor_id_response!
+  arguments:
+    - name: key_actor_id
+      type: int4!
+    - name: pre_check
+      type: actor_bool_exp
+      description: Delete permission predicate over the 'actor' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: delete_actor_by_actor_id
+  graphql:
+    rootFieldName: delete_actor_by_actor_id
+    rootFieldKind: Mutation
+  description: Delete any row on the 'actor' collection using the 'actor_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: delete_actor_by_actor_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

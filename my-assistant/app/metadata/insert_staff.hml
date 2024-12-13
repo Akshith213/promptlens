@@ -1,0 +1,118 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_staff_object
+  fields:
+    - name: active
+      type: bool
+    - name: address_id
+      type: int4!
+    - name: email
+      type: text
+    - name: first_name
+      type: text!
+    - name: last_name
+      type: text!
+    - name: last_update
+      type: timestamptz
+    - name: password
+      type: text
+    - name: picture
+      type: bytea
+    - name: staff_id
+      type: int4
+    - name: store_id
+      type: int4!
+    - name: username
+      type: text!
+  graphql:
+    typeName: insert_staff_object
+    inputTypeName: insert_staff_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_staff_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_staff_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - address_id
+          - email
+          - first_name
+          - last_name
+          - last_update
+          - password
+          - picture
+          - staff_id
+          - store_id
+          - username
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_staff_response
+  description: Responses from the 'insert_staff' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[staff!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_staff_response
+    inputTypeName: insert_staff_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_staff_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_staff_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_staff
+  outputType: insert_staff_response!
+  arguments:
+    - name: objects
+      type: "[insert_staff_object!]!"
+    - name: post_check
+      type: staff_bool_exp
+      description: Insert permission predicate over the 'staff' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_staff
+  graphql:
+    rootFieldName: insert_staff
+    rootFieldKind: Mutation
+  description: Insert into the staff table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_staff
+  permissions:
+    - role: admin
+      allowExecution: true
+

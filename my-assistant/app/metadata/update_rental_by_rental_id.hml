@@ -1,0 +1,315 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_rental_customer_id
+  description: Update the 'customer_id' column in the 'rental' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_rental_customer_id
+    inputTypeName: update_column_rental_customer_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_rental_customer_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_rental_customer_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_rental_inventory_id
+  description: Update the 'inventory_id' column in the 'rental' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_rental_inventory_id
+    inputTypeName: update_column_rental_inventory_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_rental_inventory_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_rental_inventory_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_rental_last_update
+  description: Update the 'last_update' column in the 'rental' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_rental_last_update
+    inputTypeName: update_column_rental_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_rental_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_rental_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_rental_rental_date
+  description: Update the 'rental_date' column in the 'rental' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_rental_rental_date
+    inputTypeName: update_column_rental_rental_date_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_rental_rental_date
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_rental_rental_date
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_rental_rental_id
+  description: Update the 'rental_id' column in the 'rental' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_rental_rental_id
+    inputTypeName: update_column_rental_rental_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_rental_rental_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_rental_rental_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_rental_return_date
+  description: Update the 'return_date' column in the 'rental' collection
+  fields:
+    - name: _set
+      type: timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_rental_return_date
+    inputTypeName: update_column_rental_return_date_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_rental_return_date
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_rental_return_date
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_rental_staff_id
+  description: Update the 'staff_id' column in the 'rental' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_rental_staff_id
+    inputTypeName: update_column_rental_staff_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_rental_staff_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_rental_staff_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_rental_by_rental_id_update_columns
+  description: Update the columns of the 'rental' collection
+  fields:
+    - name: customer_id
+      type: update_column_rental_customer_id
+      description: Update the 'customer_id' column in the 'rental' collection.
+    - name: inventory_id
+      type: update_column_rental_inventory_id
+      description: Update the 'inventory_id' column in the 'rental' collection.
+    - name: last_update
+      type: update_column_rental_last_update
+      description: Update the 'last_update' column in the 'rental' collection.
+    - name: rental_date
+      type: update_column_rental_rental_date
+      description: Update the 'rental_date' column in the 'rental' collection.
+    - name: rental_id
+      type: update_column_rental_rental_id
+      description: Update the 'rental_id' column in the 'rental' collection.
+    - name: return_date
+      type: update_column_rental_return_date
+      description: Update the 'return_date' column in the 'rental' collection.
+    - name: staff_id
+      type: update_column_rental_staff_id
+      description: Update the 'staff_id' column in the 'rental' collection.
+  graphql:
+    typeName: update_rental_by_rental_id_update_columns
+    inputTypeName: update_rental_by_rental_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_rental_by_rental_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_rental_by_rental_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - customer_id
+          - inventory_id
+          - last_update
+          - rental_date
+          - rental_id
+          - return_date
+          - staff_id
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_rental_by_rental_id_response
+  description: Responses from the 'update_rental_by_rental_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[rental!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_rental_by_rental_id_response
+    inputTypeName: update_rental_by_rental_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_rental_by_rental_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_rental_by_rental_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_rental_by_rental_id
+  outputType: update_rental_by_rental_id_response!
+  arguments:
+    - name: key_rental_id
+      type: int4!
+    - name: post_check
+      type: rental_bool_exp
+      description: Update permission post-condition predicate over the 'rental' collection
+    - name: pre_check
+      type: rental_bool_exp
+      description: Update permission pre-condition predicate over the 'rental' collection
+    - name: update_columns
+      type: update_rental_by_rental_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_rental_by_rental_id
+  graphql:
+    rootFieldName: update_rental_by_rental_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'rental' collection using the 'rental_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_rental_by_rental_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

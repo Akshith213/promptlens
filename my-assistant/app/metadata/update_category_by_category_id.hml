@@ -1,0 +1,187 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_category_category_id
+  description: Update the 'category_id' column in the 'category' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_category_category_id
+    inputTypeName: update_column_category_category_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_category_category_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_category_category_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_category_last_update
+  description: Update the 'last_update' column in the 'category' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_category_last_update
+    inputTypeName: update_column_category_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_category_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_category_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_category_name
+  description: Update the 'name' column in the 'category' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_category_name
+    inputTypeName: update_column_category_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_category_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_category_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_category_by_category_id_update_columns
+  description: Update the columns of the 'category' collection
+  fields:
+    - name: category_id
+      type: update_column_category_category_id
+      description: Update the 'category_id' column in the 'category' collection.
+    - name: last_update
+      type: update_column_category_last_update
+      description: Update the 'last_update' column in the 'category' collection.
+    - name: name
+      type: update_column_category_name
+      description: Update the 'name' column in the 'category' collection.
+  graphql:
+    typeName: update_category_by_category_id_update_columns
+    inputTypeName: update_category_by_category_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_category_by_category_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_category_by_category_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - category_id
+          - last_update
+          - name
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_category_by_category_id_response
+  description: Responses from the 'update_category_by_category_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[category!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_category_by_category_id_response
+    inputTypeName: update_category_by_category_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_category_by_category_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_category_by_category_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_category_by_category_id
+  outputType: update_category_by_category_id_response!
+  arguments:
+    - name: key_category_id
+      type: int4!
+    - name: post_check
+      type: category_bool_exp
+      description: Update permission post-condition predicate over the 'category' collection
+    - name: pre_check
+      type: category_bool_exp
+      description: Update permission pre-condition predicate over the 'category' collection
+    - name: update_columns
+      type: update_category_by_category_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_category_by_category_id
+  graphql:
+    rootFieldName: update_category_by_category_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'category' collection using the 'category_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_category_by_category_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

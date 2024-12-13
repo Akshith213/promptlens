@@ -1,0 +1,97 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_actor_object
+  fields:
+    - name: actor_id
+      type: int4
+    - name: first_name
+      type: text!
+    - name: last_name
+      type: text!
+    - name: last_update
+      type: timestamptz
+  graphql:
+    typeName: insert_actor_object
+    inputTypeName: insert_actor_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_actor_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_actor_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - actor_id
+          - first_name
+          - last_name
+          - last_update
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_actor_response
+  description: Responses from the 'insert_actor' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[actor!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_actor_response
+    inputTypeName: insert_actor_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_actor_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_actor_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_actor
+  outputType: insert_actor_response!
+  arguments:
+    - name: objects
+      type: "[insert_actor_object!]!"
+    - name: post_check
+      type: actor_bool_exp
+      description: Insert permission predicate over the 'actor' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_actor
+  graphql:
+    rootFieldName: insert_actor
+    rootFieldKind: Mutation
+  description: Insert into the actor table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_actor
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,156 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: payment_p2022_07
+  fields:
+    - name: amount
+      type: numeric!
+    - name: customer_id
+      type: int4!
+    - name: payment_date
+      type: timestamptz!
+    - name: payment_id
+      type: int4!
+    - name: rental_id
+      type: int4!
+    - name: staff_id
+      type: int4!
+  graphql:
+    typeName: payment_p2022_07
+    inputTypeName: payment_p2022_07_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: payment_p2022_07
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: payment_p2022_07
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - amount
+          - customer_id
+          - payment_date
+          - payment_id
+          - rental_id
+          - staff_id
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: payment_p2022_07_bool_exp
+  operand:
+    object:
+      type: payment_p2022_07
+      comparableFields:
+        - fieldName: amount
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: customer_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: payment_date
+          booleanExpressionType: timestamptz_bool_exp
+        - fieldName: payment_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: rental_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: staff_id
+          booleanExpressionType: int4_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: payment_p2022_07_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: payment_p2022_07_agg_exp
+  operand:
+    object:
+      aggregatedType: payment_p2022_07
+      aggregatableFields:
+        - fieldName: amount
+          aggregateExpression: numeric_agg_exp
+        - fieldName: customer_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: payment_date
+          aggregateExpression: timestamptz_agg_exp
+        - fieldName: payment_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: rental_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: staff_id
+          aggregateExpression: int4_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: payment_p2022_07_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: payment_p2022_07
+  objectType: payment_p2022_07
+  source:
+    dataConnectorName: mypostgres
+    collection: payment_p2022_07
+  filterExpressionType: payment_p2022_07_bool_exp
+  aggregateExpression: payment_p2022_07_agg_exp
+  orderableFields:
+    - fieldName: amount
+      orderByDirections:
+        enableAll: true
+    - fieldName: customer_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: payment_date
+      orderByDirections:
+        enableAll: true
+    - fieldName: payment_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: rental_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: staff_id
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: payment_p2022_07
+      subscription:
+        rootField: payment_p2022_07
+    selectUniques:
+      - queryRootField: payment_p2022_07_by_payment_p2022_07_pkey
+        uniqueIdentifier:
+          - payment_date
+          - payment_id
+        subscription:
+          rootField: payment_p2022_07_by_payment_p2022_07_pkey
+    orderByExpressionType: payment_p2022_07_order_by
+    filterInputTypeName: payment_p2022_07_filter_input
+    aggregate:
+      queryRootField: payment_p2022_07_aggregate
+      subscription:
+        rootField: payment_p2022_07_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: payment_p2022_07
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

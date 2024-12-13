@@ -1,0 +1,94 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_sales_by_store_object
+  fields:
+    - name: manager
+      type: text
+    - name: store
+      type: text
+    - name: total_sales
+      type: numeric
+  graphql:
+    typeName: insert_sales_by_store_object
+    inputTypeName: insert_sales_by_store_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_sales_by_store_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_sales_by_store_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - manager
+          - store
+          - total_sales
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_sales_by_store_response
+  description: Responses from the 'insert_sales_by_store' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[sales_by_store!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_sales_by_store_response
+    inputTypeName: insert_sales_by_store_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_sales_by_store_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_sales_by_store_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_sales_by_store
+  outputType: insert_sales_by_store_response!
+  arguments:
+    - name: objects
+      type: "[insert_sales_by_store_object!]!"
+    - name: post_check
+      type: sales_by_store_bool_exp
+      description: Insert permission predicate over the 'sales_by_store' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_sales_by_store
+  graphql:
+    rootFieldName: insert_sales_by_store
+    rootFieldKind: Mutation
+  description: Insert into the sales_by_store table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_sales_by_store
+  permissions:
+    - role: admin
+      allowExecution: true
+

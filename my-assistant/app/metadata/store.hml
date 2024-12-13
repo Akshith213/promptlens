@@ -1,0 +1,223 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: store
+  fields:
+    - name: address_id
+      type: int4!
+    - name: last_update
+      type: timestamptz!
+    - name: manager_staff_id
+      type: int4!
+    - name: store_id
+      type: int4!
+  graphql:
+    typeName: store
+    inputTypeName: store_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: store
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: store
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address_id
+          - last_update
+          - manager_staff_id
+          - store_id
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: store_bool_exp
+  operand:
+    object:
+      type: store
+      comparableFields:
+        - fieldName: address_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+        - fieldName: manager_staff_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: store_id
+          booleanExpressionType: int4_bool_exp
+      comparableRelationships:
+        - relationshipName: customers
+        - relationshipName: inventories
+        - relationshipName: staffs
+        - relationshipName: address
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: store_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: store_agg_exp
+  operand:
+    object:
+      aggregatedType: store
+      aggregatableFields:
+        - fieldName: address_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+        - fieldName: manager_staff_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: store_id
+          aggregateExpression: int4_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: store_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: store
+  objectType: store
+  source:
+    dataConnectorName: mypostgres
+    collection: store
+  filterExpressionType: store_bool_exp
+  aggregateExpression: store_agg_exp
+  orderableFields:
+    - fieldName: address_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+    - fieldName: manager_staff_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: store_id
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: store
+      subscription:
+        rootField: store
+    selectUniques:
+      - queryRootField: store_by_store_id
+        uniqueIdentifier:
+          - store_id
+        subscription:
+          rootField: store_by_store_id
+    orderByExpressionType: store_order_by
+    filterInputTypeName: store_filter_input
+    aggregate:
+      queryRootField: store_aggregate
+      subscription:
+        rootField: store_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: store
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: customers
+  sourceType: store
+  target:
+    model:
+      name: customer
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: customer_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: store_id
+      target:
+        modelField:
+          - fieldName: store_id
+  graphql:
+    aggregateFieldName: customers_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: inventories
+  sourceType: store
+  target:
+    model:
+      name: inventory
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: inventory_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: store_id
+      target:
+        modelField:
+          - fieldName: store_id
+  graphql:
+    aggregateFieldName: inventories_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: staffs
+  sourceType: store
+  target:
+    model:
+      name: staff
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: staff_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: store_id
+      target:
+        modelField:
+          - fieldName: store_id
+  graphql:
+    aggregateFieldName: staffs_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: address
+  sourceType: store
+  target:
+    model:
+      name: address
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: address_id
+      target:
+        modelField:
+          - fieldName: address_id
+

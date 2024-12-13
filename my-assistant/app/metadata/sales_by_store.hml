@@ -1,0 +1,120 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: sales_by_store
+  fields:
+    - name: manager
+      type: text
+    - name: store
+      type: text
+    - name: total_sales
+      type: numeric
+  graphql:
+    typeName: sales_by_store
+    inputTypeName: sales_by_store_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: sales_by_store
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: sales_by_store
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - manager
+          - store
+          - total_sales
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: sales_by_store_bool_exp
+  operand:
+    object:
+      type: sales_by_store
+      comparableFields:
+        - fieldName: manager
+          booleanExpressionType: text_bool_exp
+        - fieldName: store
+          booleanExpressionType: text_bool_exp
+        - fieldName: total_sales
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: sales_by_store_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: sales_by_store_agg_exp
+  operand:
+    object:
+      aggregatedType: sales_by_store
+      aggregatableFields:
+        - fieldName: manager
+          aggregateExpression: text_agg_exp
+        - fieldName: store
+          aggregateExpression: text_agg_exp
+        - fieldName: total_sales
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: sales_by_store_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: sales_by_store
+  objectType: sales_by_store
+  source:
+    dataConnectorName: mypostgres
+    collection: sales_by_store
+  filterExpressionType: sales_by_store_bool_exp
+  aggregateExpression: sales_by_store_agg_exp
+  orderableFields:
+    - fieldName: manager
+      orderByDirections:
+        enableAll: true
+    - fieldName: store
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_sales
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: sales_by_store
+      subscription:
+        rootField: sales_by_store
+    selectUniques: []
+    orderByExpressionType: sales_by_store_order_by
+    filterInputTypeName: sales_by_store_filter_input
+    aggregate:
+      queryRootField: sales_by_store_aggregate
+      subscription:
+        rootField: sales_by_store_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: sales_by_store
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

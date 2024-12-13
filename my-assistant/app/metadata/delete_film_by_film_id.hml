@@ -1,0 +1,62 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: delete_film_by_film_id_response
+  description: Responses from the 'delete_film_by_film_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[film!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: delete_film_by_film_id_response
+    inputTypeName: delete_film_by_film_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: delete_film_by_film_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: delete_film_by_film_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: delete_film_by_film_id
+  outputType: delete_film_by_film_id_response!
+  arguments:
+    - name: key_film_id
+      type: int4!
+    - name: pre_check
+      type: film_bool_exp
+      description: Delete permission predicate over the 'film' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: delete_film_by_film_id
+  graphql:
+    rootFieldName: delete_film_by_film_id
+    rootFieldKind: Mutation
+  description: Delete any row on the 'film' collection using the 'film_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: delete_film_by_film_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

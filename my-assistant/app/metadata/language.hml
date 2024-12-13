@@ -1,0 +1,171 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: language
+  fields:
+    - name: language_id
+      type: int4!
+    - name: last_update
+      type: timestamptz!
+    - name: name
+      type: bpchar!
+  graphql:
+    typeName: language
+    inputTypeName: language_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: language
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: language
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - language_id
+          - last_update
+          - name
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: language_bool_exp
+  operand:
+    object:
+      type: language
+      comparableFields:
+        - fieldName: language_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+        - fieldName: name
+          booleanExpressionType: bpchar_bool_exp
+      comparableRelationships:
+        - relationshipName: films
+        - relationshipName: films_by_original_language_id
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: language_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: language_agg_exp
+  operand:
+    object:
+      aggregatedType: language
+      aggregatableFields:
+        - fieldName: language_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+        - fieldName: name
+          aggregateExpression: bpchar_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: language_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: language
+  objectType: language
+  source:
+    dataConnectorName: mypostgres
+    collection: language
+  filterExpressionType: language_bool_exp
+  aggregateExpression: language_agg_exp
+  orderableFields:
+    - fieldName: language_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+    - fieldName: name
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: language
+      subscription:
+        rootField: language
+    selectUniques:
+      - queryRootField: language_by_language_id
+        uniqueIdentifier:
+          - language_id
+        subscription:
+          rootField: language_by_language_id
+    orderByExpressionType: language_order_by
+    filterInputTypeName: language_filter_input
+    aggregate:
+      queryRootField: language_aggregate
+      subscription:
+        rootField: language_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: language
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: films
+  sourceType: language
+  target:
+    model:
+      name: film
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: film_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: language_id
+      target:
+        modelField:
+          - fieldName: language_id
+  graphql:
+    aggregateFieldName: films_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: films_by_original_language_id
+  sourceType: language
+  target:
+    model:
+      name: film
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: film_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: language_id
+      target:
+        modelField:
+          - fieldName: original_language_id
+  graphql:
+    aggregateFieldName: films_by_original_language_id_aggregate
+

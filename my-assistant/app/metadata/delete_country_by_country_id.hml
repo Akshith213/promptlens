@@ -1,0 +1,62 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: delete_country_by_country_id_response
+  description: Responses from the 'delete_country_by_country_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[country!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: delete_country_by_country_id_response
+    inputTypeName: delete_country_by_country_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: delete_country_by_country_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: delete_country_by_country_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: delete_country_by_country_id
+  outputType: delete_country_by_country_id_response!
+  arguments:
+    - name: key_country_id
+      type: int4!
+    - name: pre_check
+      type: country_bool_exp
+      description: Delete permission predicate over the 'country' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: delete_country_by_country_id
+  graphql:
+    rootFieldName: delete_country_by_country_id
+    rootFieldKind: Mutation
+  description: Delete any row on the 'country' collection using the 'country_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: delete_country_by_country_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

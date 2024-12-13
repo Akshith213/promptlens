@@ -1,0 +1,110 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: rental_by_category
+  fields:
+    - name: category
+      type: text
+    - name: total_sales
+      type: numeric
+  graphql:
+    typeName: rental_by_category
+    inputTypeName: rental_by_category_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: rental_by_category
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: rental_by_category
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - category
+          - total_sales
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: rental_by_category_bool_exp
+  operand:
+    object:
+      type: rental_by_category
+      comparableFields:
+        - fieldName: category
+          booleanExpressionType: text_bool_exp
+        - fieldName: total_sales
+          booleanExpressionType: numeric_bool_exp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: rental_by_category_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: rental_by_category_agg_exp
+  operand:
+    object:
+      aggregatedType: rental_by_category
+      aggregatableFields:
+        - fieldName: category
+          aggregateExpression: text_agg_exp
+        - fieldName: total_sales
+          aggregateExpression: numeric_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: rental_by_category_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: rental_by_category
+  objectType: rental_by_category
+  source:
+    dataConnectorName: mypostgres
+    collection: rental_by_category
+  filterExpressionType: rental_by_category_bool_exp
+  aggregateExpression: rental_by_category_agg_exp
+  orderableFields:
+    - fieldName: category
+      orderByDirections:
+        enableAll: true
+    - fieldName: total_sales
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: rental_by_category
+      subscription:
+        rootField: rental_by_category
+    selectUniques: []
+    orderByExpressionType: rental_by_category_order_by
+    filterInputTypeName: rental_by_category_filter_input
+    aggregate:
+      queryRootField: rental_by_category_aggregate
+      subscription:
+        rootField: rental_by_category_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: rental_by_category
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

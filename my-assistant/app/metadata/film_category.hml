@@ -1,0 +1,164 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: film_category
+  fields:
+    - name: category_id
+      type: int4!
+    - name: film_id
+      type: int4!
+    - name: last_update
+      type: timestamptz!
+  graphql:
+    typeName: film_category
+    inputTypeName: film_category_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: film_category
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: film_category
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - category_id
+          - film_id
+          - last_update
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: film_category_bool_exp
+  operand:
+    object:
+      type: film_category
+      comparableFields:
+        - fieldName: category_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: film_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+      comparableRelationships:
+        - relationshipName: category
+        - relationshipName: film
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: film_category_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: film_category_agg_exp
+  operand:
+    object:
+      aggregatedType: film_category
+      aggregatableFields:
+        - fieldName: category_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: film_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: film_category_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: film_category
+  objectType: film_category
+  source:
+    dataConnectorName: mypostgres
+    collection: film_category
+  filterExpressionType: film_category_bool_exp
+  aggregateExpression: film_category_agg_exp
+  orderableFields:
+    - fieldName: category_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: film_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: film_category
+      subscription:
+        rootField: film_category
+    selectUniques:
+      - queryRootField: film_category_by_film_category_pkey
+        uniqueIdentifier:
+          - category_id
+          - film_id
+        subscription:
+          rootField: film_category_by_film_category_pkey
+    orderByExpressionType: film_category_order_by
+    filterInputTypeName: film_category_filter_input
+    aggregate:
+      queryRootField: film_category_aggregate
+      subscription:
+        rootField: film_category_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: film_category
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: category
+  sourceType: film_category
+  target:
+    model:
+      name: category
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: category_id
+      target:
+        modelField:
+          - fieldName: category_id
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: film
+  sourceType: film_category
+  target:
+    model:
+      name: film
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: film_id
+      target:
+        modelField:
+          - fieldName: film_id
+

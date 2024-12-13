@@ -1,0 +1,158 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: actor
+  fields:
+    - name: actor_id
+      type: int4!
+    - name: first_name
+      type: text!
+    - name: last_name
+      type: text!
+    - name: last_update
+      type: timestamptz!
+  graphql:
+    typeName: actor
+    inputTypeName: actor_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: actor
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: actor
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - actor_id
+          - first_name
+          - last_name
+          - last_update
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: actor_bool_exp
+  operand:
+    object:
+      type: actor
+      comparableFields:
+        - fieldName: actor_id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: first_name
+          booleanExpressionType: text_bool_exp
+        - fieldName: last_name
+          booleanExpressionType: text_bool_exp
+        - fieldName: last_update
+          booleanExpressionType: timestamptz_bool_exp
+      comparableRelationships:
+        - relationshipName: film_actors
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: actor_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: actor_agg_exp
+  operand:
+    object:
+      aggregatedType: actor
+      aggregatableFields:
+        - fieldName: actor_id
+          aggregateExpression: int4_agg_exp
+        - fieldName: first_name
+          aggregateExpression: text_agg_exp
+        - fieldName: last_name
+          aggregateExpression: text_agg_exp
+        - fieldName: last_update
+          aggregateExpression: timestamptz_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: actor_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: actor
+  objectType: actor
+  source:
+    dataConnectorName: mypostgres
+    collection: actor
+  filterExpressionType: actor_bool_exp
+  aggregateExpression: actor_agg_exp
+  orderableFields:
+    - fieldName: actor_id
+      orderByDirections:
+        enableAll: true
+    - fieldName: first_name
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_name
+      orderByDirections:
+        enableAll: true
+    - fieldName: last_update
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: actor
+      subscription:
+        rootField: actor
+    selectUniques:
+      - queryRootField: actor_by_actor_id
+        uniqueIdentifier:
+          - actor_id
+        subscription:
+          rootField: actor_by_actor_id
+    orderByExpressionType: actor_order_by
+    filterInputTypeName: actor_filter_input
+    aggregate:
+      queryRootField: actor_aggregate
+      subscription:
+        rootField: actor_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: actor
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: film_actors
+  sourceType: actor
+  target:
+    model:
+      name: film_actor
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: film_actor_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: actor_id
+      target:
+        modelField:
+          - fieldName: actor_id
+  graphql:
+    aggregateFieldName: film_actors_aggregate
+

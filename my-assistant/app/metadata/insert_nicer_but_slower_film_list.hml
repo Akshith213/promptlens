@@ -1,0 +1,110 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_nicer_but_slower_film_list_object
+  fields:
+    - name: actors
+      type: text
+    - name: category
+      type: text
+    - name: description
+      type: text
+    - name: fid
+      type: int4
+    - name: length
+      type: int2
+    - name: price
+      type: numeric
+    - name: rating
+      type: mpaa_rating
+    - name: title
+      type: text
+  graphql:
+    typeName: insert_nicer_but_slower_film_list_object
+    inputTypeName: insert_nicer_but_slower_film_list_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_nicer_but_slower_film_list_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_nicer_but_slower_film_list_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - actors
+          - category
+          - description
+          - fid
+          - length
+          - price
+          - rating
+          - title
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_nicer_but_slower_film_list_response
+  description: Responses from the 'insert_nicer_but_slower_film_list' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[nicer_but_slower_film_list!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_nicer_but_slower_film_list_response
+    inputTypeName: insert_nicer_but_slower_film_list_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_nicer_but_slower_film_list_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_nicer_but_slower_film_list_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_nicer_but_slower_film_list
+  outputType: insert_nicer_but_slower_film_list_response!
+  arguments:
+    - name: objects
+      type: "[insert_nicer_but_slower_film_list_object!]!"
+    - name: post_check
+      type: nicer_but_slower_film_list_bool_exp
+      description: Insert permission predicate over the 'nicer_but_slower_film_list'
+        collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_nicer_but_slower_film_list
+  graphql:
+    rootFieldName: insert_nicer_but_slower_film_list
+    rootFieldKind: Mutation
+  description: Insert into the nicer_but_slower_film_list table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_nicer_but_slower_film_list
+  permissions:
+    - role: admin
+      allowExecution: true
+

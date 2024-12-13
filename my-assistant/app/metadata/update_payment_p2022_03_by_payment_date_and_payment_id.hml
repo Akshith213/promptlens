@@ -1,0 +1,289 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_payment_p2022_03_amount
+  description: Update the 'amount' column in the 'payment_p2022_03' collection
+  fields:
+    - name: _set
+      type: numeric!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_payment_p2022_03_amount
+    inputTypeName: update_column_payment_p2022_03_amount_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_payment_p2022_03_amount
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_payment_p2022_03_amount
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_payment_p2022_03_customer_id
+  description: Update the 'customer_id' column in the 'payment_p2022_03' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_payment_p2022_03_customer_id
+    inputTypeName: update_column_payment_p2022_03_customer_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_payment_p2022_03_customer_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_payment_p2022_03_customer_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_payment_p2022_03_payment_date
+  description: Update the 'payment_date' column in the 'payment_p2022_03' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_payment_p2022_03_payment_date
+    inputTypeName: update_column_payment_p2022_03_payment_date_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_payment_p2022_03_payment_date
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_payment_p2022_03_payment_date
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_payment_p2022_03_payment_id
+  description: Update the 'payment_id' column in the 'payment_p2022_03' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_payment_p2022_03_payment_id
+    inputTypeName: update_column_payment_p2022_03_payment_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_payment_p2022_03_payment_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_payment_p2022_03_payment_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_payment_p2022_03_rental_id
+  description: Update the 'rental_id' column in the 'payment_p2022_03' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_payment_p2022_03_rental_id
+    inputTypeName: update_column_payment_p2022_03_rental_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_payment_p2022_03_rental_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_payment_p2022_03_rental_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_payment_p2022_03_staff_id
+  description: Update the 'staff_id' column in the 'payment_p2022_03' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_payment_p2022_03_staff_id
+    inputTypeName: update_column_payment_p2022_03_staff_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_payment_p2022_03_staff_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_payment_p2022_03_staff_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_payment_p2022_03_by_payment_date_and_payment_id_update_columns
+  description: Update the columns of the 'payment_p2022_03' collection
+  fields:
+    - name: amount
+      type: update_column_payment_p2022_03_amount
+      description: Update the 'amount' column in the 'payment_p2022_03' collection.
+    - name: customer_id
+      type: update_column_payment_p2022_03_customer_id
+      description: Update the 'customer_id' column in the 'payment_p2022_03' collection.
+    - name: payment_date
+      type: update_column_payment_p2022_03_payment_date
+      description: Update the 'payment_date' column in the 'payment_p2022_03' collection.
+    - name: payment_id
+      type: update_column_payment_p2022_03_payment_id
+      description: Update the 'payment_id' column in the 'payment_p2022_03' collection.
+    - name: rental_id
+      type: update_column_payment_p2022_03_rental_id
+      description: Update the 'rental_id' column in the 'payment_p2022_03' collection.
+    - name: staff_id
+      type: update_column_payment_p2022_03_staff_id
+      description: Update the 'staff_id' column in the 'payment_p2022_03' collection.
+  graphql:
+    typeName: update_payment_p2022_03_by_payment_date_and_payment_id_update_columns
+    inputTypeName: update_payment_p2022_03_by_payment_date_and_payment_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_payment_p2022_03_by_payment_date_and_payment_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_payment_p2022_03_by_payment_date_and_payment_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - amount
+          - customer_id
+          - payment_date
+          - payment_id
+          - rental_id
+          - staff_id
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_payment_p2022_03_by_payment_date_and_payment_id_response
+  description: Responses from the
+    'update_payment_p2022_03_by_payment_date_and_payment_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[payment_p2022_03!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_payment_p2022_03_by_payment_date_and_payment_id_response
+    inputTypeName: update_payment_p2022_03_by_payment_date_and_payment_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_payment_p2022_03_by_payment_date_and_payment_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_payment_p2022_03_by_payment_date_and_payment_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_payment_p2022_03_by_payment_date_and_payment_id
+  outputType: update_payment_p2022_03_by_payment_date_and_payment_id_response!
+  arguments:
+    - name: key_payment_date
+      type: timestamptz!
+    - name: key_payment_id
+      type: int4!
+    - name: post_check
+      type: payment_p2022_03_bool_exp
+      description: Update permission post-condition predicate over the
+        'payment_p2022_03' collection
+    - name: pre_check
+      type: payment_p2022_03_bool_exp
+      description: Update permission pre-condition predicate over the
+        'payment_p2022_03' collection
+    - name: update_columns
+      type: update_payment_p2022_03_by_payment_date_and_payment_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_payment_p2022_03_by_payment_date_and_payment_id
+  graphql:
+    rootFieldName: update_payment_p2022_03_by_payment_date_and_payment_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'payment_p2022_03' collection using the
+    'payment_date' and 'payment_id' keys
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_payment_p2022_03_by_payment_date_and_payment_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

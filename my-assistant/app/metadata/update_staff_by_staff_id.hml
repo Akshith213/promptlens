@@ -1,0 +1,443 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_active
+  description: Update the 'active' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: bool!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_active
+    inputTypeName: update_column_staff_active_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_active
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_active
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_address_id
+  description: Update the 'address_id' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_address_id
+    inputTypeName: update_column_staff_address_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_address_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_address_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_email
+  description: Update the 'email' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: text
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_email
+    inputTypeName: update_column_staff_email_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_email
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_email
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_first_name
+  description: Update the 'first_name' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_first_name
+    inputTypeName: update_column_staff_first_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_first_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_first_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_last_name
+  description: Update the 'last_name' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_last_name
+    inputTypeName: update_column_staff_last_name_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_last_name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_last_name
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_last_update
+  description: Update the 'last_update' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_last_update
+    inputTypeName: update_column_staff_last_update_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_last_update
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_last_update
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_password
+  description: Update the 'password' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: text
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_password
+    inputTypeName: update_column_staff_password_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_password
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_password
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_picture
+  description: Update the 'picture' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: bytea
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_picture
+    inputTypeName: update_column_staff_picture_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_picture
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_picture
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_staff_id
+  description: Update the 'staff_id' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_staff_id
+    inputTypeName: update_column_staff_staff_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_staff_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_staff_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_store_id
+  description: Update the 'store_id' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: int4!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_store_id
+    inputTypeName: update_column_staff_store_id_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_store_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_store_id
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_column_staff_username
+  description: Update the 'username' column in the 'staff' collection
+  fields:
+    - name: _set
+      type: text!
+      description: Set the column to this value
+  graphql:
+    typeName: update_column_staff_username
+    inputTypeName: update_column_staff_username_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_column_staff_username
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_column_staff_username
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - _set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_staff_by_staff_id_update_columns
+  description: Update the columns of the 'staff' collection
+  fields:
+    - name: active
+      type: update_column_staff_active
+      description: Update the 'active' column in the 'staff' collection.
+    - name: address_id
+      type: update_column_staff_address_id
+      description: Update the 'address_id' column in the 'staff' collection.
+    - name: email
+      type: update_column_staff_email
+      description: Update the 'email' column in the 'staff' collection.
+    - name: first_name
+      type: update_column_staff_first_name
+      description: Update the 'first_name' column in the 'staff' collection.
+    - name: last_name
+      type: update_column_staff_last_name
+      description: Update the 'last_name' column in the 'staff' collection.
+    - name: last_update
+      type: update_column_staff_last_update
+      description: Update the 'last_update' column in the 'staff' collection.
+    - name: password
+      type: update_column_staff_password
+      description: Update the 'password' column in the 'staff' collection.
+    - name: picture
+      type: update_column_staff_picture
+      description: Update the 'picture' column in the 'staff' collection.
+    - name: staff_id
+      type: update_column_staff_staff_id
+      description: Update the 'staff_id' column in the 'staff' collection.
+    - name: store_id
+      type: update_column_staff_store_id
+      description: Update the 'store_id' column in the 'staff' collection.
+    - name: username
+      type: update_column_staff_username
+      description: Update the 'username' column in the 'staff' collection.
+  graphql:
+    typeName: update_staff_by_staff_id_update_columns
+    inputTypeName: update_staff_by_staff_id_update_columns_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_staff_by_staff_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_staff_by_staff_id_update_columns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - address_id
+          - email
+          - first_name
+          - last_name
+          - last_update
+          - password
+          - picture
+          - staff_id
+          - store_id
+          - username
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: update_staff_by_staff_id_response
+  description: Responses from the 'update_staff_by_staff_id' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[staff!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: update_staff_by_staff_id_response
+    inputTypeName: update_staff_by_staff_id_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: update_staff_by_staff_id_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: update_staff_by_staff_id_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: update_staff_by_staff_id
+  outputType: update_staff_by_staff_id_response!
+  arguments:
+    - name: key_staff_id
+      type: int4!
+    - name: post_check
+      type: staff_bool_exp
+      description: Update permission post-condition predicate over the 'staff' collection
+    - name: pre_check
+      type: staff_bool_exp
+      description: Update permission pre-condition predicate over the 'staff' collection
+    - name: update_columns
+      type: update_staff_by_staff_id_update_columns!
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: update_staff_by_staff_id
+  graphql:
+    rootFieldName: update_staff_by_staff_id
+    rootFieldKind: Mutation
+  description: Update any row on the 'staff' collection using the 'staff_id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: update_staff_by_staff_id
+  permissions:
+    - role: admin
+      allowExecution: true
+

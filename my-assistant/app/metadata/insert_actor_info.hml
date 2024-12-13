@@ -1,0 +1,97 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_actor_info_object
+  fields:
+    - name: actor_id
+      type: int4
+    - name: film_info
+      type: text
+    - name: first_name
+      type: text
+    - name: last_name
+      type: text
+  graphql:
+    typeName: insert_actor_info_object
+    inputTypeName: insert_actor_info_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_actor_info_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_actor_info_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - actor_id
+          - film_info
+          - first_name
+          - last_name
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_actor_info_response
+  description: Responses from the 'insert_actor_info' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[actor_info!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_actor_info_response
+    inputTypeName: insert_actor_info_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_actor_info_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_actor_info_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_actor_info
+  outputType: insert_actor_info_response!
+  arguments:
+    - name: objects
+      type: "[insert_actor_info_object!]!"
+    - name: post_check
+      type: actor_info_bool_exp
+      description: Insert permission predicate over the 'actor_info' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_actor_info
+  graphql:
+    rootFieldName: insert_actor_info
+    rootFieldKind: Mutation
+  description: Insert into the actor_info table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_actor_info
+  permissions:
+    - role: admin
+      allowExecution: true
+

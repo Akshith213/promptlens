@@ -1,0 +1,103 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_payment_p2022_03_object
+  fields:
+    - name: amount
+      type: numeric!
+    - name: customer_id
+      type: int4!
+    - name: payment_date
+      type: timestamptz!
+    - name: payment_id
+      type: int4
+    - name: rental_id
+      type: int4!
+    - name: staff_id
+      type: int4!
+  graphql:
+    typeName: insert_payment_p2022_03_object
+    inputTypeName: insert_payment_p2022_03_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_payment_p2022_03_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_payment_p2022_03_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - amount
+          - customer_id
+          - payment_date
+          - payment_id
+          - rental_id
+          - staff_id
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_payment_p2022_03_response
+  description: Responses from the 'insert_payment_p2022_03' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[payment_p2022_03!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_payment_p2022_03_response
+    inputTypeName: insert_payment_p2022_03_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_payment_p2022_03_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_payment_p2022_03_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_payment_p2022_03
+  outputType: insert_payment_p2022_03_response!
+  arguments:
+    - name: objects
+      type: "[insert_payment_p2022_03_object!]!"
+    - name: post_check
+      type: payment_p2022_03_bool_exp
+      description: Insert permission predicate over the 'payment_p2022_03' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_payment_p2022_03
+  graphql:
+    rootFieldName: insert_payment_p2022_03
+    rootFieldKind: Mutation
+  description: Insert into the payment_p2022_03 table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_payment_p2022_03
+  permissions:
+    - role: admin
+      allowExecution: true
+

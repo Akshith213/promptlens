@@ -1,0 +1,134 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_staff_list_object
+  fields:
+    - name: address
+      type: text
+    - name: city
+      type: text
+    - name: country
+      type: text
+    - name: id
+      type: int4
+    - name: name
+      type: text
+    - name: phone
+      type: text
+    - name: sid
+      type: int4
+    - name: zip_code
+      type: text
+  graphql:
+    typeName: insert_staff_list_object
+    inputTypeName: insert_staff_list_object_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_staff_list_object
+      fieldMapping:
+        address:
+          column:
+            name: address
+        city:
+          column:
+            name: city
+        country:
+          column:
+            name: country
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        phone:
+          column:
+            name: phone
+        sid:
+          column:
+            name: sid
+        zip_code:
+          column:
+            name: zip code
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_staff_list_object
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - city
+          - country
+          - id
+          - name
+          - phone
+          - sid
+          - zip_code
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: insert_staff_list_response
+  description: Responses from the 'insert_staff_list' procedure
+  fields:
+    - name: affected_rows
+      type: int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[staff_list!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: insert_staff_list_response
+    inputTypeName: insert_staff_list_response_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: mypostgres
+      dataConnectorObjectType: insert_staff_list_response
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: insert_staff_list_response
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affected_rows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: insert_staff_list
+  outputType: insert_staff_list_response!
+  arguments:
+    - name: objects
+      type: "[insert_staff_list_object!]!"
+    - name: post_check
+      type: staff_list_bool_exp
+      description: Insert permission predicate over the 'staff_list' collection
+  source:
+    dataConnectorName: mypostgres
+    dataConnectorCommand:
+      procedure: insert_staff_list
+  graphql:
+    rootFieldName: insert_staff_list
+    rootFieldKind: Mutation
+  description: Insert into the staff_list table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: insert_staff_list
+  permissions:
+    - role: admin
+      allowExecution: true
+
